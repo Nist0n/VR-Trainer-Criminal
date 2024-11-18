@@ -1,0 +1,36 @@
+using Config;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace UI.PauseMenu
+{
+    public class PauseMenuButtons : MonoBehaviour
+    {
+        [SerializeField] private Button continueButton;
+    
+        [SerializeField] private Button exitButton;
+
+        [SerializeField] private GameObject pauseMenu;
+        
+        void Start()
+        {
+            continueButton.onClick.AddListener(ContinueTraining);
+            exitButton.onClick.AddListener(Exit);
+        }
+
+        private void ContinueTraining()
+        {
+            GameManager.Instance.IsPaused = false;
+            pauseMenu.SetActive(false);
+            Time.timeScale = 1;
+        }
+
+        private void Exit()
+        {
+            // Вернуться на главную сцену
+            GameManager.Instance.IsPaused = false;
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
+        }
+    }
+}

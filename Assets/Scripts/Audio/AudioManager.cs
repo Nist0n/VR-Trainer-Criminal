@@ -13,8 +13,6 @@ namespace Audio
 
         private void Awake()
         {
-            PlayMusic("Test");
-            
             if (Instance == null)
             {
                 Instance = this;

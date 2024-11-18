@@ -13,7 +13,7 @@ namespace Audio
 
         private void Start()
         {
-            if (PlayerPrefs.HasKey("MusicVolume") && PlayerPrefs.HasKey("SoundVolume"))
+            if (PlayerPrefs.HasKey("Music") && PlayerPrefs.HasKey("Sound"))
             {
                 LoadVolume();
             }
@@ -28,22 +28,22 @@ namespace Audio
         {
             float volume = musicSlider.value;
             audioMixer.SetFloat("Music", MathF.Log10(volume) * 20);
-            PlayerPrefs.SetFloat("MusicVolume", volume);
+            PlayerPrefs.SetFloat("Music", volume);
         }
 
         public void SetSoundVolume()
         {
             float volume = soundSlider.value;
             audioMixer.SetFloat("Sound", MathF.Log10(volume) * 20);
-            PlayerPrefs.SetFloat("SoundVolume", volume);
+            PlayerPrefs.SetFloat("Sound", volume);
         }
 
         private void LoadVolume()
         {
-            float musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+            float musicVolume = PlayerPrefs.GetFloat("Music");
             musicSlider.value = musicVolume;
 
-            float soundVolume = PlayerPrefs.GetFloat("SoundVolume");
+            float soundVolume = PlayerPrefs.GetFloat("Sound");
             soundSlider.value = soundVolume;
         }
     }
