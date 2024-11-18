@@ -13,6 +13,8 @@ namespace Audio
 
         private void Awake()
         {
+            PlayMusic("Test");
+            
             if (Instance == null)
             {
                 Instance = this;
@@ -26,7 +28,7 @@ namespace Audio
         
         public void PlayMusic(string soundName)
         {
-            Sound s = music.Find(x => x.name == soundName);
+            Sound s = music.Find(x => x.ClipName == soundName);
 
             if (s == null)
             {
@@ -40,7 +42,7 @@ namespace Audio
 
         public void PlaySound(string soundName)
         {
-            Sound s = sounds.Find(x => x.name == soundName);
+            Sound s = sounds.Find(x => x.ClipName == soundName);
 
             if (s == null)
             {
@@ -53,7 +55,7 @@ namespace Audio
 
         public void PlayRandomSoundByName(string soundName, AudioSource source)
         {
-            List<Sound> matchingSounds = sounds.FindAll(sound => sound.name == soundName);
+            List<Sound> matchingSounds = sounds.FindAll(sound => sound.ClipName == soundName);
 
             if (matchingSounds.Count > 0)
             {
