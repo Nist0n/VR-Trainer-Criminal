@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI.MainMenu
@@ -9,15 +10,23 @@ namespace UI.MainMenu
     
         [SerializeField] private Button exitButton;
         
+        [SerializeField] private Button trainingButton;
+        
         void Start()
         {
-            startButton.onClick.AddListener(StartTraining);
+            startButton.onClick.AddListener(StartDoc);
             exitButton.onClick.AddListener(Exit);
+            trainingButton.onClick.AddListener(StartTraining);
+        }
+
+        private void StartDoc()
+        {
+            Debug.Log("Doc Started");
         }
 
         private void StartTraining()
         {
-            Debug.Log("Training Started");
+            SceneManager.LoadScene("TrainingScene");
         }
         
         private void Exit()
