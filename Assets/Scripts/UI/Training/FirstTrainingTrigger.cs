@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DialogueEditor;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace UI.Training
         [SerializeField] private NPCConversation firstTraining;
 
         [SerializeField] private GameObject table;
-        
+
 
         private void OnTriggerEnter(Collider other)
         {
