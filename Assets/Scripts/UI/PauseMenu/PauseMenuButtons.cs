@@ -1,5 +1,6 @@
 using Config;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI.PauseMenu
@@ -27,10 +28,10 @@ namespace UI.PauseMenu
 
         private void Exit()
         {
-            // Вернуться на главную сцену
             GameManager.Instance.IsPaused = false;
             Time.timeScale = 1;
             pauseMenu.SetActive(false);
+            SceneManager.LoadScene("MainScene");
         }
     }
 }
