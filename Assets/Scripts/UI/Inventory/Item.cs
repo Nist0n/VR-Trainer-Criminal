@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace UI.Inventory
@@ -12,17 +13,20 @@ namespace UI.Inventory
 
         public bool IsHanded;
 
-        public void CheckUI()
+        private Vector3 _originalScale;
+
+        public void CheckUI(GameObject joy)
         {
+            joy.GetComponent<Item>().IsHanded = false;
             if (InSlot)
             {
                 Debug.Log("Entered");
-                IsHanded = false;
-                CurrentSlot.ItemInSlot = null;
-                gameObject.transform.parent = null;
-                InSlot = false;
-                CurrentSlot.ResetColor();
-                CurrentSlot = null;
+                joy.GetComponent<Item>().CurrentSlot.ItemInSlot = null;
+                joy.transform.parent = null;
+                joy.GetComponent<Item>().InSlot = false;
+                joy.GetComponent<Item>().CurrentSlot.ResetColor();
+                gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                joy.GetComponent<Item>().CurrentSlot = null;
             }
         }
 
@@ -30,6 +34,7 @@ namespace UI.Inventory
         {
             IsHanded = true;
             gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            gameObject.transform.parent = null;
         }
     }
 }

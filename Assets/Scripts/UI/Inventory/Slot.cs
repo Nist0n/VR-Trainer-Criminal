@@ -14,22 +14,17 @@ namespace UI.Inventory
         private Color _originalColor;
     
         [SerializeField] private InputActionProperty putItem;
-
+        
         private void Start()
         {
             SlotImage = GetComponentInChildren<Image>();
 
             _originalColor = SlotImage.color;
         }
-
-        private void Update()
-        {
-            
-        }
-
+        
         private void OnTriggerStay(Collider other)
         {
-            Debug.Log(other.name);
+            Debug.Log("XD");
             
             if (ItemInSlot != null) return;
 
@@ -60,15 +55,15 @@ namespace UI.Inventory
 
         private void InsertItem(GameObject obj)
         {
+            Debug.Log("Insert");
             obj.GetComponent<Rigidbody>().isKinematic = true;
-            obj.transform.SetParent(gameObject.transform, true);
+            obj.transform.SetParent(gameObject.transform);
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localEulerAngles = obj.GetComponent<Item>().SlotRotation;
             obj.GetComponent<Item>().InSlot = true;
             obj.GetComponent<Item>().CurrentSlot = this;
             ItemInSlot = obj;
             SlotImage.color = Color.gray;
-            Debug.Log(obj.GetComponent<Rigidbody>().isKinematic);
         }
 
         public void ResetColor()
