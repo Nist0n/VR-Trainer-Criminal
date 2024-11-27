@@ -11,15 +11,13 @@ namespace UI.Inventory
 
         public Image SlotImage;
 
-        private Color _originalColor;
+        private Color _originalColor = Color.white;
     
         [SerializeField] private InputActionProperty putItem;
         
         private void Start()
         {
             SlotImage = GetComponentInChildren<Image>();
-
-            _originalColor = SlotImage.color;
         }
         
         private void OnTriggerStay(Collider other)
@@ -53,7 +51,7 @@ namespace UI.Inventory
             }
         }
 
-        private void InsertItem(GameObject obj)
+        public void InsertItem(GameObject obj)
         {
             Debug.Log("Insert");
             obj.GetComponent<Rigidbody>().isKinematic = true;
