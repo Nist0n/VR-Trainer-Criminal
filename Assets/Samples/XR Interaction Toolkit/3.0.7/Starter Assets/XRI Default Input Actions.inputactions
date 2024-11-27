@@ -3019,7 +3019,7 @@
                     "name": "Spawn Object",
                     "type": "Button",
                     "id": "1415f3c5-fc5f-4f58-a044-4a69560151f2",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -3352,7 +3352,7 @@
                 {
                     "name": "",
                     "id": "f3ac2d4b-6f75-453b-8b77-209f0d65e619",
-                    "path": "<XRController>{RightHand}/menuButton",
+                    "path": "<XRController>{LeftHand}/primaryButton",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
