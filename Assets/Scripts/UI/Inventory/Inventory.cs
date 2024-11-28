@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace UI.Inventory
 {
@@ -22,10 +23,13 @@ namespace UI.Inventory
 
         private void Start()
         {
-            slots[0].InsertItem(brush);
-            slots[1].InsertItem(scotch);
-            inventoryVR.SetActive(false);
-            _UIActive = false;
+            if (SceneManager.GetActiveScene().name == "Fabula1")
+            {
+                slots[0].InsertItem(brush);
+                slots[1].InsertItem(scotch);
+                inventoryVR.SetActive(false);
+                _UIActive = false;
+            }
         }
 
         private void Update()

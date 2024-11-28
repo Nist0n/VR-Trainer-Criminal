@@ -15,6 +15,7 @@ namespace UI.Inventory
             if (other.CompareTag("Otpechatok"))
             {
                 otpechatok.GetComponentInChildren<SpriteRenderer>().sprite = other.gameObject.GetComponent<SpriteRenderer>().sprite;
+                other.gameObject.SetActive(false);
                 GameObject temp = Instantiate(otpechatok, inventory.transform);
                 inventory.CheckEmpty().InsertItem(temp);
             }

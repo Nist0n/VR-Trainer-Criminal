@@ -970,7 +970,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1986346150}
+      - m_Target: {fileID: 1857289525}
         m_TargetAssemblyTypeName: Audio.VolumeSettings, Assembly-CSharp
         m_MethodName: SetMusicVolume
         m_Mode: 1
@@ -3058,6 +3058,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1857289524}
+  - component: {fileID: 1857289525}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -3081,6 +3082,21 @@ Transform:
   - {fileID: 1116314894}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1857289525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857289523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e531adaee80cd478cad85a70db2cc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: efa3a8605d2cd82438c6943960e8a0f5, type: 2}
+  musicSlider: {fileID: 415725752}
+  soundSlider: {fileID: 1926286052}
 --- !u!1 &1918847857
 GameObject:
   m_ObjectHideFlags: 0
@@ -3188,7 +3204,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1986346150}
+      - m_Target: {fileID: 1857289525}
         m_TargetAssemblyTypeName: Audio.VolumeSettings, Assembly-CSharp
         m_MethodName: SetSoundVolume
         m_Mode: 1
@@ -3299,17 +3315,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1984576370}
   m_CullTransparentMesh: 1
---- !u!114 &1986346150 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5308918368124714067, guid: 542c782eead664a479d0dc071fd51c6d, type: 3}
-  m_PrefabInstance: {fileID: 2773064810156239095}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59e531adaee80cd478cad85a70db2cc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2074578816
 GameObject:
   m_ObjectHideFlags: 0
@@ -3643,14 +3648,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5308918368124714067, guid: 542c782eead664a479d0dc071fd51c6d, type: 3}
-      propertyPath: musicSlider
-      value: 
-      objectReference: {fileID: 415725752}
-    - target: {fileID: 5308918368124714067, guid: 542c782eead664a479d0dc071fd51c6d, type: 3}
-      propertyPath: soundSlider
-      value: 
-      objectReference: {fileID: 1926286052}
     - target: {fileID: 5689070426317931182, guid: 542c782eead664a479d0dc071fd51c6d, type: 3}
       propertyPath: m_Name
       value: AudioManager
@@ -3715,15 +3712,27 @@ PrefabInstance:
     - target: {fileID: 3619784685930834810, guid: 7c05a8d23bb35ac4183a5bf219c00476, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1986346150}
+      objectReference: {fileID: 0}
     - target: {fileID: 5125305575230139575, guid: 7c05a8d23bb35ac4183a5bf219c00476, type: 3}
       propertyPath: m_GazeInteractor
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6371142478138380912, guid: 7c05a8d23bb35ac4183a5bf219c00476, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6640415412774445913, guid: 7c05a8d23bb35ac4183a5bf219c00476, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265008214135090962, guid: 7c05a8d23bb35ac4183a5bf219c00476, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7886802124182496726, guid: 7c05a8d23bb35ac4183a5bf219c00476, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1986346150}
+      objectReference: {fileID: 0}
     - target: {fileID: 8959358906832242819, guid: 7c05a8d23bb35ac4183a5bf219c00476, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -21,7 +21,7 @@ namespace UI.MainMenu
 
         private void StartDoc()
         {
-            Debug.Log("Doc Started");
+            SceneManager.LoadScene("Fabula1");
         }
 
         private void StartTraining()

@@ -19,11 +19,9 @@ namespace UI.Inventory
         {
             SlotImage = GetComponentInChildren<Image>();
         }
-        
+
         private void OnTriggerStay(Collider other)
         {
-            Debug.Log("XD");
-            
             if (ItemInSlot != null) return;
 
             GameObject obj = other.gameObject;
@@ -33,10 +31,17 @@ namespace UI.Inventory
                 return;
             }
             
+            SlotImage.color = Color.green;
+            
             if (!putItem.action.IsPressed() && obj.GetComponent<Item>().IsHanded)
             {
                 InsertItem(obj);
             }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            ResetColor();
         }
 
         private bool IsItem(GameObject obj)
@@ -53,7 +58,6 @@ namespace UI.Inventory
 
         public void InsertItem(GameObject obj)
         {
-            Debug.Log("Insert");
             obj.GetComponent<Rigidbody>().isKinematic = true;
             obj.transform.SetParent(gameObject.transform);
             obj.transform.localPosition = Vector3.zero;

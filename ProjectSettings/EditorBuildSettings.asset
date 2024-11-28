@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TrainingScene.unity
     guid: f63409b4e0b3dd84b8ba55be94154b06
+  - enabled: 1
+    path: Assets/Scenes/Fabula1.unity
+    guid: f744f2272df0bc94aab1c53ae8249ae8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 629f6f87823c01349a9a9f5d48b2787a, type: 2}

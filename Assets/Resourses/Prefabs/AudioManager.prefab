@@ -268,7 +268,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6872744074454095705}
   - component: {fileID: 6141436664552568096}
-  - component: {fileID: 5308918368124714067}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -284,7 +283,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5689070426317931182}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.172974, y: 0.29395127, z: 2.4351752}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -311,18 +310,3 @@ MonoBehaviour:
   - ClipName: Test
     Clip: {fileID: 8300000, guid: ebb840f1976b6e7459e1544726a631e5, type: 3}
   sounds: []
---- !u!114 &5308918368124714067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5689070426317931182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59e531adaee80cd478cad85a70db2cc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: efa3a8605d2cd82438c6943960e8a0f5, type: 2}
-  musicSlider: {fileID: 0}
-  soundSlider: {fileID: 0}
