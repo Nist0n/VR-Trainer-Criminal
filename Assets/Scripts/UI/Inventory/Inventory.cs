@@ -28,8 +28,7 @@ namespace UI.Inventory
         private void Start()
         {
             slot1.InsertItem(brush);
-            brush.GetComponent<Item>().InSlot = true;
-            //slot2.InsertItem(scotch);
+            slot2.InsertItem(scotch);
             inventoryVR.SetActive(false);
             _UIActive = false;
         }
