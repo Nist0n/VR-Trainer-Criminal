@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,13 +12,7 @@ namespace UI.Inventory
 
         [SerializeField] private InputActionProperty inventoryButton;
 
-        [SerializeField] private Slot slot1;
-        
-        [SerializeField] private Slot slot2;
-        
-        [SerializeField] private Slot slot3;
-        
-        [SerializeField] private Slot slot4;
+        [SerializeField] private List<Slot> slots;
         
         [SerializeField] private GameObject brush;
         
@@ -27,8 +22,8 @@ namespace UI.Inventory
 
         private void Start()
         {
-            slot1.InsertItem(brush);
-            slot2.InsertItem(scotch);
+            slots[0].InsertItem(brush);
+            slots[1].InsertItem(scotch);
             inventoryVR.SetActive(false);
             _UIActive = false;
         }
@@ -45,6 +40,19 @@ namespace UI.Inventory
             //     inventoryVR.transform.position = anchor.transform.position;
             //     inventoryVR.transform.eulerAngles = new Vector3(anchor.transform.eulerAngles.x + 15, anchor.transform.eulerAngles.y, 0);
             // }
+        }
+
+        public Slot CheckEmpty()
+        {
+            foreach (var slot in slots)
+            {
+                if (slot.ItemInSlot == null)
+                {
+                    return slot;
+                }
+            }
+
+            return null;
         }
     }
 }

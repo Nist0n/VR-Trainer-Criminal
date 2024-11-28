@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Cube
   - Glass
+  - Otpechatok
   layers:
   - Default
   - TransparentFX
