@@ -10,10 +10,9 @@ namespace Items
             if (other.CompareTag("Glass"))
             {
                 Debug.Log("Glass");
-                if (other.gameObject.GetComponent<Otpechatok>())
+                if (other.gameObject.GetComponent<Fingerprint>())
                 {
-                    Debug.Log("Acrive");
-                    other.gameObject.GetComponent<Otpechatok>().Activate();
+                    other.gameObject.GetComponent<Fingerprint>().Activate();
                 }
             }
         }
