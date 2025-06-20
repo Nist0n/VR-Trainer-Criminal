@@ -19,31 +19,24 @@ namespace UI.Inventory
         
         [SerializeField] private GameObject scotch;
     
-        private bool _UIActive;
+        private bool _uiActive;
 
         private void Start()
         {
-            if (SceneManager.GetActiveScene().name == "Fabula1")
-            {
-                slots[0].InsertItem(brush);
-                slots[1].InsertItem(scotch);
-                inventoryVR.SetActive(false);
-                _UIActive = false;
-            }
+            if (SceneManager.GetActiveScene().name != "Fabula1") return;
+            
+            slots[0].InsertItem(brush);
+            slots[1].InsertItem(scotch);
+            inventoryVR.SetActive(false);
+            _uiActive = false;
         }
 
         private void Update()
         {
-            if (inventoryButton.action.triggered)
-            {
-                _UIActive = !_UIActive;
-                inventoryVR.SetActive(_UIActive);
-            }
-            // if (_UIActive)
-            // {
-            //     inventoryVR.transform.position = anchor.transform.position;
-            //     inventoryVR.transform.eulerAngles = new Vector3(anchor.transform.eulerAngles.x + 15, anchor.transform.eulerAngles.y, 0);
-            // }
+            if (!inventoryButton.action.triggered) return;
+            
+            _uiActive = !_uiActive;
+            inventoryVR.SetActive(_uiActive);
         }
 
         public Slot CheckEmpty()

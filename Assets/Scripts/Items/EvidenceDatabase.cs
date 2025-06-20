@@ -18,6 +18,7 @@ namespace Items
                 if (_instance == null)
                 {
                     _instance = Resources.Load<EvidenceDatabase>("EvidenceDatabase");
+                    
                     if (_instance == null)
                     {
                         Debug.LogError("EvidenceDatabase not found in Resources folder!");

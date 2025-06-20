@@ -14,13 +14,12 @@ namespace UI.Training
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
-            {
-                table.GetComponent<RectTransform>().eulerAngles = Vector3.zero;
-                table.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-603f, -21, 7.5f);
-                table.SetActive(true);
-                ConversationManager.Instance.StartConversation(firstTraining);
-            }
+            if (!other.CompareTag("Player")) return;
+            
+            table.GetComponent<RectTransform>().eulerAngles = Vector3.zero;
+            table.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(-603f, -21, 7.5f);
+            table.SetActive(true);
+            ConversationManager.Instance.StartConversation(firstTraining);
         }
 
         private void OnTriggerExit(Collider other)

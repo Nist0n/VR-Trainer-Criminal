@@ -7,9 +7,9 @@ namespace Audio
 {
     public class VolumeSettings : MonoBehaviour
     {
-        [SerializeField] AudioMixer audioMixer;
-        [SerializeField] Slider musicSlider;
-        [SerializeField] Slider soundSlider;
+        [SerializeField] private AudioMixer audioMixer;
+        [SerializeField] private Slider musicSlider;
+        [SerializeField] private Slider soundSlider;
 
         private void Start()
         {

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DialogueEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UI.Training
 {
@@ -17,9 +19,9 @@ namespace UI.Training
 
         private int _cubesCount;
     
-        [SerializeField] private List<GameObject> _cubes = new List<GameObject>();
+        [SerializeField] private List<GameObject> cubes = new List<GameObject>();
     
-        public void CubesGameBool(bool cubes) => _cubesGameStarted = cubes;
+        public void CubesGameBool(bool cubesBool) => _cubesGameStarted = cubesBool;
 
         private void Start()
         {
@@ -28,42 +30,34 @@ namespace UI.Training
 
         private void Update()
         {
-            if (_cubes.Count >= _cubesCount && !_trainingEnded && _cubesGameStarted)
-            {
-                _trainingEnded = true;
-                table.SetActive(true);
-                ConversationManager.Instance.StartConversation(endTraining);
-            }
+            if (cubes.Count < _cubesCount || _trainingEnded || !_cubesGameStarted) return;
+            
+            _trainingEnded = true;
+            table.SetActive(true);
+            ConversationManager.Instance.StartConversation(endTraining);
         }
     
     
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Cube") && _cubesGameStarted)
+            if (!other.CompareTag("Cube") || !_cubesGameStarted) return;
+            
+            if (cubes.Any(cube => cube.name == other.gameObject.name))
             {
-                foreach (var cube in _cubes)
-                {
-                    if (cube.name == other.gameObject.name)
-                    {
-                        return;
-                    }
-                }
-                _cubes.Add(other.gameObject);
+                return;
             }
+            
+            cubes.Add(other.gameObject);
         }
     
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Cube") && _cubesGameStarted)
+            if (!other.CompareTag("Cube") || !_cubesGameStarted) return;
+
+            foreach (var cube in cubes.Where(cube => cube.name == other.gameObject.name))
             {
-                foreach (var cube in _cubes)
-                {
-                    if (cube.name == other.gameObject.name)
-                    {
-                        _cubes.Remove(cube);
-                        return;
-                    }
-                }
+                cubes.Remove(cube);
+                return;
             }
         }
     }

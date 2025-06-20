@@ -18,16 +18,15 @@ namespace UI.Inventory
         public void CheckUI(GameObject joy)
         {
             joy.GetComponent<Item>().IsHanded = false;
-            if (InSlot)
-            {
-                Debug.Log("Entered");
-                joy.GetComponent<Item>().CurrentSlot.ItemInSlot = null;
-                joy.transform.parent = null;
-                joy.GetComponent<Item>().InSlot = false;
-                joy.GetComponent<Item>().CurrentSlot.ResetColor();
-                gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                joy.GetComponent<Item>().CurrentSlot = null;
-            }
+            
+            if (!InSlot) return;
+            
+            joy.GetComponent<Item>().CurrentSlot.ItemInSlot = null;
+            joy.transform.parent = null;
+            joy.GetComponent<Item>().InSlot = false;
+            joy.GetComponent<Item>().CurrentSlot.ResetColor();
+            gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            joy.GetComponent<Item>().CurrentSlot = null;
         }
 
         public void IsHandedFalse()

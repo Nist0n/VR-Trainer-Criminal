@@ -11,7 +11,7 @@ namespace UI.Inventory
 
         public Image SlotImage;
 
-        private Color _originalColor = Color.white;
+        private readonly Color _originalColor = Color.white;
     
         [SerializeField] private InputActionProperty putItem;
         

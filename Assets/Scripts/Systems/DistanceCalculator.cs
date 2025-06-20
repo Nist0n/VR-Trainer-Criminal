@@ -41,6 +41,7 @@ namespace Systems
             {
                 Vector3 closestPoint1 = col1.ClosestPoint(col2.transform.position);
                 Vector3 closestPoint2 = col2.ClosestPoint(closestPoint1);
+                
                 return Vector3.Distance(closestPoint1, closestPoint2);
             }
             
@@ -54,6 +55,7 @@ namespace Systems
             
             Vector3 point1 = col1.ClosestPoint(col2.bounds.center);
             Vector3 point2 = col2.ClosestPoint(point1);
+            
             return Vector3.Distance(point1, point2);
         }
     }

@@ -10,9 +10,11 @@ namespace Items
             if (other.CompareTag("Glass"))
             {
                 Fingerprint fingerprint = other.gameObject.GetComponent<Fingerprint>();
+                
                 if (fingerprint != null)
                 {
-                    var data = fingerprint.GetEvidenceData() as FingerprintData;
+                    FingerprintData data = fingerprint.GetEvidenceData() as FingerprintData;
+                    
                     if (data != null && !data.IsDiscovered)
                     {
                         fingerprint.Activate();

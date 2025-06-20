@@ -12,14 +12,13 @@ namespace UI.PauseMenu
         
         private void Update()
         {
-            if (pauseAction.action.triggered)
-            {
-                Time.timeScale = GameManager.Instance.IsPaused ? 1 : 0;
+            if (!pauseAction.action.triggered) return;
+            
+            Time.timeScale = GameManager.Instance.IsPaused ? 1 : 0;
                 
-                pauseMenu.SetActive(!GameManager.Instance.IsPaused);
+            pauseMenu.SetActive(!GameManager.Instance.IsPaused);
                 
-                GameManager.Instance.IsPaused = !GameManager.Instance.IsPaused;
-            }
+            GameManager.Instance.IsPaused = !GameManager.Instance.IsPaused;
         }
     }
 }

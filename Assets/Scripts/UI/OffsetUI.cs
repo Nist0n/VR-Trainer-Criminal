@@ -4,11 +4,20 @@ namespace UI
 {
     public class OffsetUI : MonoBehaviour
     {
-        void Update()
-        {
-            gameObject.transform.rotation = Camera.main.transform.rotation;
+        private Camera _camera;
 
-            gameObject.transform.position = Camera.main.transform.position;
+        private void Start()
+        {
+            _camera = Camera.main;
+        }
+
+        private void Update()
+        {
+            if (!_camera) return;
+            
+            gameObject.transform.rotation = _camera.transform.rotation;
+
+            gameObject.transform.position = _camera.transform.position;
         }
     }
 }

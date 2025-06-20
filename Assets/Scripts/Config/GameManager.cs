@@ -9,7 +9,7 @@ namespace Config
     {
         public static GameManager Instance;
         
-        public bool IsPaused = false;
+        public bool IsPaused;
         
         private void Awake()
         {

@@ -11,8 +11,8 @@ namespace UI.MainMenu
         [SerializeField] private Button exitButton;
         
         [SerializeField] private Button trainingButton;
-        
-        void Start()
+
+        private void Start()
         {
             startButton.onClick.AddListener(StartDoc);
             exitButton.onClick.AddListener(Exit);

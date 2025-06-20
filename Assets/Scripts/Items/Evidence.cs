@@ -5,6 +5,7 @@ namespace Items
     public abstract class Evidence : MonoBehaviour
     {
         [SerializeField] protected GameObject evidenceObject;
+        
         [SerializeField] protected string evidenceId;
 
         protected EvidenceData Data;

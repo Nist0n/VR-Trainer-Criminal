@@ -12,8 +12,8 @@ namespace UI.PauseMenu
         [SerializeField] private Button exitButton;
 
         [SerializeField] private GameObject pauseMenu;
-        
-        void Start()
+
+        private void Start()
         {
             continueButton.onClick.AddListener(ContinueTraining);
             exitButton.onClick.AddListener(Exit);

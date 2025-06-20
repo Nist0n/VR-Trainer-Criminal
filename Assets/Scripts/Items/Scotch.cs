@@ -12,7 +12,7 @@ namespace UI.Inventory
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Otpechatok"))
+            if (other.CompareTag("Fingerprint"))
             {
                 otpechatok.GetComponentInChildren<SpriteRenderer>().sprite = other.gameObject.GetComponent<SpriteRenderer>().sprite;
                 other.gameObject.SetActive(false);

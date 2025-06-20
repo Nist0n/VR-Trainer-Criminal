@@ -6,7 +6,9 @@ namespace XR_Input
     public class HandsInteraction : MonoBehaviour
     {
         [SerializeField] private Animator animator;
+        
         [SerializeField] private InputActionProperty gripAction;
+        
         [SerializeField] private InputActionProperty activateAction;
 
         private void Update()

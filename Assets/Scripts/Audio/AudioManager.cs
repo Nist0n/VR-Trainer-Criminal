@@ -7,9 +7,9 @@ namespace Audio
     {
         public static AudioManager Instance;
 
-        [SerializeField] AudioSource musicSource;
-        [SerializeField] AudioSource soundSource;
-        [SerializeField] List<Sound> music, sounds;
+        [SerializeField] private AudioSource musicSource;
+        [SerializeField] private AudioSource soundSource;
+        [SerializeField] private List<Sound> music, sounds;
 
         private void Awake()
         {
