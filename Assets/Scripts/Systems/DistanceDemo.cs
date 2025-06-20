@@ -4,23 +4,14 @@ namespace Systems
 {
     public class DistanceDemo : MonoBehaviour
     {
-        public GameObject object1;
-        public GameObject object2;
-        public DistanceCalculator distanceCalculator;
-        public SelectionManager selectionManager;
+        [SerializeField] private DistanceCalculator distanceCalculator;
     
-        void Update()
+        public void CheckDistance(GameObject object1, GameObject object2)
         {
-            if (object1 != null && object2 != null)
+            if (object1 && object2)
             {
-                // Выделяем объекты
-                selectionManager.ClearAllHighlights();
-                selectionManager.HighlightObject(object1, true);
-                selectionManager.HighlightObject(object2, true);
-            
-                // Рассчитываем расстояние
                 float distance = distanceCalculator.CalculateShortestDistance(object1, object2);
-                Debug.Log($"Shortest distance between objects: {distance}");
+                // Вывести эту информацию
             }
         }
     }

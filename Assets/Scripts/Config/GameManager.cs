@@ -1,5 +1,7 @@
 using Audio;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Items;
 
 namespace Config
 {
@@ -15,6 +17,7 @@ namespace Config
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+                SceneManager.sceneLoaded += OnSceneLoaded;
             }
             else
             {
@@ -22,9 +25,36 @@ namespace Config
             }
         }
         
-        void Start()
+        private void Start()
         {
             AudioManager.Instance.PlayMusic("Test");
+        }
+
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+        
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            ResetEvidence();
+        }
+
+        private void ResetEvidence()
+        {
+            EvidenceDatabase database = EvidenceDatabase.Instance;
+            
+            if (database == null) return;
+            
+            foreach (var evidence in database.AllEvidence)
+            {
+                evidence.IsDiscovered = false;
+            }
+                
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(database);
+            UnityEditor.AssetDatabase.SaveAssets();
+#endif
         }
     }
 }

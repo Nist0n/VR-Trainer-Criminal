@@ -2,18 +2,16 @@ using UnityEngine;
 
 namespace Items
 {
-    public class Fingerprint : MonoBehaviour
+    public class Fingerprint : Evidence
     {
-        [SerializeField] private GameObject fingerprintObject;
-        
-        public void Activate()
+        protected override void LoadEvidenceData()
         {
-            fingerprintObject.SetActive(true);
-        }
-    
-        public void DeActivate()
-        {
-            fingerprintObject.SetActive(false);
+            Data = EvidenceDatabase.Instance.GetEvidenceById<FingerprintData>(evidenceId);
+            
+            if (Data == null)
+            {
+                Debug.LogError($"Fingerprint with ID {evidenceId} not found in database!");
+            }
         }
     }
 }

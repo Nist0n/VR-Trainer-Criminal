@@ -12,7 +12,6 @@ namespace Systems
             
             if (colliders1.Length == 0 || colliders2.Length == 0)
             {
-                Debug.LogWarning("One or both objects don't have colliders. Using pivot distance instead.");
                 return Vector3.Distance(obj1.transform.position, obj2.transform.position);
             }
 

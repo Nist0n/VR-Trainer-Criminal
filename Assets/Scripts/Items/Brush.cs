@@ -9,10 +9,15 @@ namespace Items
         {
             if (other.CompareTag("Glass"))
             {
-                Debug.Log("Glass");
-                if (other.gameObject.GetComponent<Fingerprint>())
+                Fingerprint fingerprint = other.gameObject.GetComponent<Fingerprint>();
+                if (fingerprint != null)
                 {
-                    other.gameObject.GetComponent<Fingerprint>().Activate();
+                    var data = fingerprint.GetEvidenceData() as FingerprintData;
+                    if (data != null && !data.IsDiscovered)
+                    {
+                        fingerprint.Activate();
+                        Debug.Log($"Found fingerprint belonging to: {data.OwnerName}");
+                    }
                 }
             }
         }
