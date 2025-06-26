@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 6046066946698610054}
   - component: {fileID: 5641069441605828645}
   - component: {fileID: 1206779266180251517}
-  - component: {fileID: 5540364174727862605}
   - component: {fileID: 728421598335846588}
   - component: {fileID: 4696150652052575098}
   m_Layer: 0
@@ -199,7 +198,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5540364174727862605}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UI.Inventory.Item, Assembly-CSharp
         m_MethodName: CheckUI
         m_Mode: 2
@@ -214,7 +213,7 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5540364174727862605}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UI.Inventory.Item, Assembly-CSharp
         m_MethodName: IsHandedFalse
         m_Mode: 1
@@ -297,22 +296,6 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
---- !u!114 &5540364174727862605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4871062398994354794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63bd2d285e5058a41a62f7a4fef02531, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InSlot: 0
-  SlotRotation: {x: 0, y: 0, z: 0}
-  CurrentSlot: {fileID: 0}
-  IsHanded: 0
 --- !u!114 &728421598335846588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 0}
-  otpechatok: {fileID: 399931976108717182, guid: 2aa2fa57e628bce43bfa573c393611f5, type: 3}
+  otpechatok: {fileID: 5674236043927776451, guid: f0220e33935c0a34db05e5bee02cc99c, type: 3}
 --- !u!65 &4696150652052575098
 BoxCollider:
   m_ObjectHideFlags: 0

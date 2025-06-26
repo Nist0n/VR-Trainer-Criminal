@@ -128,7 +128,6 @@ GameObject:
   - component: {fileID: 1979830394241546304}
   - component: {fileID: 164444714935539298}
   - component: {fileID: 570499972482118134}
-  - component: {fileID: 465316109002641482}
   - component: {fileID: 6280584327789709199}
   m_Layer: 0
   m_Name: brush_002
@@ -231,7 +230,7 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 465316109002641482}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UI.Inventory.Item, Assembly-CSharp
         m_MethodName: CheckUI
         m_Mode: 2
@@ -246,7 +245,7 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 465316109002641482}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UI.Inventory.Item, Assembly-CSharp
         m_MethodName: IsHandedFalse
         m_Mode: 1
@@ -329,22 +328,6 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
---- !u!114 &465316109002641482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2158207836040551336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63bd2d285e5058a41a62f7a4fef02531, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InSlot: 0
-  SlotRotation: {x: 0, y: 0, z: 0}
-  CurrentSlot: {fileID: 0}
-  IsHanded: 0
 --- !u!65 &6280584327789709199
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -5,19 +5,26 @@ namespace UI.Inventory
 {
     public class Scotch : MonoBehaviour
     {
-        [SerializeField] private Inventory inventory;
+        [SerializeField] private AdaptiveGridInventory inventory;
 
         [SerializeField] private GameObject otpechatok;
-        
 
+        // Весь скрипт переделать, id не должен браться из префаба
+        
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Fingerprint"))
             {
-                otpechatok.GetComponentInChildren<SpriteRenderer>().sprite = other.gameObject.GetComponent<SpriteRenderer>().sprite;
-                other.gameObject.SetActive(false);
-                GameObject temp = Instantiate(otpechatok, inventory.transform);
-                inventory.CheckEmpty().InsertItem(temp);
+                var itemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
+                if (itemDatabase != null)
+                {
+                    Debug.Log("Database");
+                    var item = itemDatabase.GetItemById(otpechatok.GetComponent<PickupableItem>().ItemId);
+                    otpechatok.GetComponentInChildren<SpriteRenderer>().sprite =
+                        other.gameObject.GetComponent<SpriteRenderer>().sprite;
+                    other.gameObject.SetActive(false);
+                    inventory.AddItem(item);
+                }
             }
         }
     }
