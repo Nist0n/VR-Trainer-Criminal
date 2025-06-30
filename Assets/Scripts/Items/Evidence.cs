@@ -13,27 +13,13 @@ namespace Items
         protected virtual void Awake()
         {
             LoadEvidenceData();
-            if (Data != null)
-            {
-                evidenceObject.SetActive(false);
-            }
         }
 
         protected abstract void LoadEvidenceData();
 
-        public virtual void Activate()
-        {
-            if (Data == null) return;
-            
-            evidenceObject.SetActive(true);
-            
-            EvidenceDatabase.Instance.DiscoverEvidence(evidenceId);
-        }
+        public virtual void Activate() {}
 
-        public virtual void DeActivate()
-        {
-            evidenceObject.SetActive(false);
-        }
+        public virtual void DeActivate() {}
 
         public EvidenceData GetEvidenceData()
         {

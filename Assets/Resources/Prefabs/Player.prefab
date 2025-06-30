@@ -631,7 +631,6 @@ Transform:
   m_Children:
   - {fileID: 5765275096509030340}
   - {fileID: 5162420995042454134}
-  - {fileID: 5237307956982165383}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3608717868595582064
@@ -2784,6 +2783,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4741880726375180940}
+  - {fileID: 5237307956982165383}
   m_Father: {fileID: 5765275096509030340}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &7360907420512308439
@@ -5586,6 +5586,7 @@ MonoBehaviour:
   instrumentButton: {fileID: 2093314980424232331}
   evidenceButton: {fileID: 8832490660788640830}
   notebookButton: {fileID: 5139049049785775909}
+  adaptiveGridInventory: {fileID: 0}
   ToggleInventoryAction:
     m_UseReference: 1
     m_Action:
@@ -5833,12 +5834,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7496812022735451845}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.335, z: 0.173}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.011, z: 0.2546}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8959358906832242819}
+  m_Father: {fileID: 7418219141410869668}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7503729510664927988
 GameObject:

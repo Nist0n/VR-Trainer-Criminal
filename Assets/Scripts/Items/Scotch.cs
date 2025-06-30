@@ -1,29 +1,29 @@
 using System;
+using Data;
+using UI.Inventory;
 using UnityEngine;
 
-namespace UI.Inventory
+namespace Items
 {
     public class Scotch : MonoBehaviour
     {
-        [SerializeField] private AdaptiveGridInventory inventory;
+        private AdaptiveGridInventory _inventory;
 
-        [SerializeField] private GameObject otpechatok;
+        private void Start()
+        {
+            _inventory = FindAnyObjectByType<AdaptiveGridInventory>();
+        }
 
-        // Весь скрипт переделать, id не должен браться из префаба
-        
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Fingerprint"))
             {
-                var itemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
-                if (itemDatabase != null)
+                var itemsDatabase = Resources.Load<ItemsDatabase>("ItemsDatabase");
+                if (itemsDatabase)
                 {
-                    Debug.Log("Database");
-                    var item = itemDatabase.GetItemById(otpechatok.GetComponent<PickupableItem>().ItemId);
-                    otpechatok.GetComponentInChildren<SpriteRenderer>().sprite =
-                        other.gameObject.GetComponent<SpriteRenderer>().sprite;
-                    other.gameObject.SetActive(false);
-                    inventory.AddItem(item);
+                    var item = itemsDatabase.GetItemById<InventoryItem>(other.GetComponent<Fingerprint>().FingerprintId);
+                    other.GetComponent<Fingerprint>().DeActivate();
+                    _inventory.AddItem(item);
                 }
             }
         }

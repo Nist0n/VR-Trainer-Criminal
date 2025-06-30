@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53cc6ec7471a92642affad13dbd2dbfb, type: 3}
   m_Name: GlassFingerprint
   m_EditorClassIdentifier: 
-  EvidenceId: 0
+  EvidenceId: GlassFingerprint
   OwnerName: Kate
-  IsDiscovered: 0
+  IsDiscovered: 1
   OriginalPosition: {x: 0, y: 0, z: 0}

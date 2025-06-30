@@ -1,4 +1,5 @@
 using Audio;
+using Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Items;
@@ -44,7 +45,7 @@ namespace Config
         {
             EvidenceDatabase database = EvidenceDatabase.Instance;
             
-            if (database == null) return;
+            if (!database) return;
             
             foreach (var evidence in database.AllEvidence)
             {

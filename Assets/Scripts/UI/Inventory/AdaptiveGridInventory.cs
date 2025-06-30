@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,8 @@ namespace UI.Inventory
         [SerializeField] private Button instrumentButton;
         [SerializeField] private Button evidenceButton;
         [SerializeField] private Button notebookButton;
+        [SerializeField] private GameObject adaptiveGridInventory;
+        
         
         [Header("Input")]
         [SerializeField]
@@ -41,7 +44,7 @@ namespace UI.Inventory
             evidenceButton.onClick.AddListener(() => OnCategoryTabClicked(ToolCategory.Analysis));
             notebookButton.onClick.AddListener(() => OnCategoryTabClicked(ToolCategory.Documentation));
             LoadInitialItems();
-            gameObject.SetActive(false);
+            adaptiveGridInventory.SetActive(false);
         }
         
         private void Update()
@@ -51,13 +54,6 @@ namespace UI.Inventory
         
         private void HandleInput()
         {
-            if (ToggleInventoryAction.action.triggered)
-            {
-                ToggleInventory();
-            }
-            
-            if (!_isInventoryOpen) return;
-            
             if (pickupAction.action.triggered || Input.GetKeyDown(KeyCode.Q))
             {
                 TryPickupItem();
@@ -96,8 +92,6 @@ namespace UI.Inventory
             HideReturnButton();
             
             HideGridContainers();
-            
-            Debug.Log("Вернулись в главное меню");
         }
         
         private void ShowAllCategories()
@@ -131,13 +125,12 @@ namespace UI.Inventory
             ShowAllCategories();
             
             var itemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
-            if (itemDatabase == null)
+            if (!itemDatabase)
             {
                 Debug.LogError("Failed to load InventoryItemDatabase from Resources!");
                 return;
             }
-
-            // Load items for each category
+            
             foreach (ToolCategory category in System.Enum.GetValues(typeof(ToolCategory)))
             {
                 var items = itemDatabase.GetItemsByCategory(category);
@@ -153,9 +146,8 @@ namespace UI.Inventory
             if (item.isStackable)
             {
                 InventorySlot existingSlot = FindSlotWithItem(item.itemId);
-                if (existingSlot != null)
+                if (existingSlot)
                 {
-                    Debug.Log("Так быть не должно");
                     existingSlot.AddToStack();
                     return;
                 }
@@ -174,7 +166,8 @@ namespace UI.Inventory
                     InventorySlot slot = Instantiate(slotPrefab, container.transform).GetComponent<InventorySlot>();
                     slot.SetItem(item, spawnPoint);
                     _slots.Add(slot);
-                    break; // Exit after adding to the correct container
+                    Resources.Load<InventoryItemDatabase>("InventoryItemDatabase").AddItem(item);
+                    break;
                 }
             }
         }
@@ -183,7 +176,7 @@ namespace UI.Inventory
         {
             foreach (var slot in _slots)
             {
-                if (slot.Item != null && slot.Item.itemId == itemId)
+                if (slot.Item && slot.Item.itemId == itemId)
                     return slot;
             }
             
@@ -193,7 +186,8 @@ namespace UI.Inventory
         public void ToggleInventory()
         {
             _isInventoryOpen = !_isInventoryOpen;
-            gameObject.SetActive(_isInventoryOpen);
+            
+            adaptiveGridInventory.SetActive(_isInventoryOpen);
             
             if (_isInventoryOpen)
             {
@@ -203,21 +197,16 @@ namespace UI.Inventory
         
         private void TryPickupItem()
         {
-            Debug.Log("Tried");
-            // Получаем позицию игрока (можно настроить под твою систему)
             Vector3 playerPosition = Camera.main.transform.position;
             Vector3 playerForward = Camera.main.transform.forward;
             
-            // Делаем raycast для поиска предметов
             RaycastHit hit;
             if (Physics.Raycast(playerPosition, playerForward, out hit, pickupDistance, itemLayerMask))
             {
                 GameObject itemObject = hit.collider.gameObject;
-                Debug.Log(itemObject.name);
                 
-                // Проверяем, есть ли у объекта компонент для подбора
                 var pickupableItem = itemObject.GetComponent<PickupableItem>();
-                if (pickupableItem != null)
+                if (pickupableItem)
                 {
                     PickupItem(pickupableItem);
                 }
@@ -226,18 +215,29 @@ namespace UI.Inventory
         
         private void PickupItem(PickupableItem pickupableItem)
         {
-            Debug.Log("PickupItem");
-            var itemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
-            if (itemDatabase != null)
+            var inventoryItemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
+            if (inventoryItemDatabase)
             {
-                Debug.Log("Database");
-                var item = itemDatabase.GetItemById(pickupableItem.ItemId);
-                if (item != null)
+                var item = inventoryItemDatabase.GetItemById(pickupableItem.ItemId);
+                if (item)
                 {
-                    Debug.Log("Item Added");
                     AddItem(item);
                     Destroy(pickupableItem.gameObject);
-                    Debug.Log($"Подобран предмет: {item.displayName}");
+                }
+                else
+                {
+                    var temp = Resources.Load<ItemsDatabase>("ItemsDatabase").GetItemById<InventoryItem>(pickupableItem.ItemId);
+                    if (temp)
+                    {
+                        AddItem(temp);
+                    }
+                    else
+                    {
+                        InventoryItem newItem = inventoryItemDatabase.CreateItem(pickupableItem.ItemId, pickupableItem.DisplayName, pickupableItem.Icon,
+                            pickupableItem.Prefab, pickupableItem.Category, pickupableItem.IsStackable, pickupableItem.MaxStackSize, pickupableItem.Description);
+                        AddItem(newItem);
+                    }
+                    Destroy(pickupableItem.gameObject);
                 }
             }
         }
@@ -245,10 +245,10 @@ namespace UI.Inventory
         public void AddItemToInventory(string itemId)
         {
             var itemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
-            if (itemDatabase != null)
+            if (itemDatabase)
             {
                 var item = itemDatabase.GetItemById(itemId);
-                if (item != null)
+                if (item)
                 {
                     AddItem(item);
                 }
@@ -257,13 +257,13 @@ namespace UI.Inventory
         
         public bool HasItem(string itemId)
         {
-            return FindSlotWithItem(itemId) != null;
+            return FindSlotWithItem(itemId);
         }
         
         public void RemoveItem(string itemId)
         {
             var slot = FindSlotWithItem(itemId);
-            if (slot != null)
+            if (slot)
             {
                 slot.RemoveFromStack();
             }
@@ -272,7 +272,7 @@ namespace UI.Inventory
         public void RemoveEmptySlot(string itemId)
         {
             var slot = FindSlotWithItem(itemId);
-            if (slot != null)
+            if (slot)
             {
                 _slots.Remove(slot);
                 Destroy(slot.gameObject);

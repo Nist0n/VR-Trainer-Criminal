@@ -1,4 +1,8 @@
 using System.Collections.Generic;
+using System.IO;
+using Data;
+using Items;
+using UnityEditor;
 using UnityEngine;
 
 namespace UI.Inventory
@@ -23,13 +27,11 @@ namespace UI.Inventory
             
             foreach (var item in allItems)
             {
-                // Добавляем в общий lookup
                 if (!string.IsNullOrEmpty(item.itemId))
                 {
                     _itemLookup[item.itemId] = item;
                 }
                 
-                // Добавляем в категории
                 if (!_categoryLookup.ContainsKey(item.category))
                 {
                     _categoryLookup[item.category] = new List<InventoryItem>();
@@ -55,7 +57,7 @@ namespace UI.Inventory
         
         public void AddItem(InventoryItem item)
         {
-            if (item != null && !allItems.Contains(item))
+            if (item && !allItems.Contains(item))
             {
                 allItems.Add(item);
                 BuildLookupTables();
@@ -79,23 +81,28 @@ namespace UI.Inventory
             }
         }
         
-        // Методы для создания предметов программно
-        public InventoryItem CreateItem(string itemId, string displayName, Sprite icon, GameObject prefab, ToolCategory category)
+        public InventoryItem CreateItem(string itemId, string displayName, Sprite icon, GameObject prefab, ToolCategory category, bool isStackable, int maxStackSize, string description = "")
         {
-            var item = new InventoryItem
-            {
-                itemId = itemId,
-                displayName = displayName,
-                icon = icon,
-                prefab = prefab,
-                category = category
-            };
+            var item = CreateInstance<InventoryItem>();
+            
+            item.itemId = itemId;
+            item.displayName = displayName;
+            item.icon = icon;
+            item.prefab = prefab;
+            item.category = category;
+            item.description = description;
+            item.isStackable = isStackable;
+            item.maxStackSize = maxStackSize;
+            
+            AssetDatabase.CreateAsset(item, $"Assets/Resources/Data/Items/{itemId}Item.asset");
+            AssetDatabase.SaveAssets();
+            
+            ItemsDatabase.Instance.AddNewItemToDatabase(item);
             
             AddItem(item);
             return item;
         }
         
-        // Методы для сохранения/загрузки данных
         public void SaveToPlayerPrefs()
         {
             // Сохраняем состояние инвентаря (какие предметы у игрока)
@@ -108,7 +115,6 @@ namespace UI.Inventory
         }
     }
     
-    // Расширение для работы с конкретными типами инструментов
     public static class InventoryItemExtensions
     {
         public static bool IsSamplingTool(this InventoryItem item)

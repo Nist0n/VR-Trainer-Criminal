@@ -32,7 +32,7 @@ namespace UI.Inventory
         
         public InventoryItem Item => _item;
         public int ItemCount => _itemCount;
-        public bool IsEmpty => _item == null;
+        public bool IsEmpty => !_item;
         
         private void Start()
         {
@@ -59,11 +59,13 @@ namespace UI.Inventory
         public void ClearSlot()
         {
             _inventory.RemoveEmptySlot(_item.itemId);
+            var database = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
+            database.RemoveItem(_item);
         }
         
         public void AddToStack(int amount = 1)
         {
-            if (_item != null && _item.isStackable)
+            if (_item && _item.isStackable)
             {
                 _itemCount = Mathf.Min(_itemCount + amount, _item.maxStackSize);
                 UpdateVisuals();
@@ -72,9 +74,10 @@ namespace UI.Inventory
         
         public bool RemoveFromStack(int amount = 1)
         {
-            if (_item == null || _itemCount < amount) return false;
+            if (!_item || _itemCount < amount) return false;
             
             _itemCount -= amount;
+            Debug.Log(_itemCount);
             if (_itemCount <= 0)
             {
                 ClearSlot();
@@ -88,7 +91,7 @@ namespace UI.Inventory
         
         private void UpdateVisuals()
         {
-            if (_item != null)
+            if (_item)
             {
                 IconImage.sprite = _item.icon;
                 IconImage.color = filledColor;
@@ -139,20 +142,19 @@ namespace UI.Inventory
         
         private void ShowContextMenu()
         {
-            if (_contextMenu != null) return;
+            if (_contextMenu) return;
             
             _contextMenu = Instantiate(contextMenuPrefab, transform);
             var contextMenu = _contextMenu.GetComponent<InventoryContextMenu>();
             contextMenu.Initialize(_item, this, _spawnpoint);
             
-            // Позиционируем меню рядом с ячейкой
-            RectTransform rectTransform = _contextMenu.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = new Vector2(rectTransform.rect.width, 0);
+            // RectTransform rectTransform = _contextMenu.GetComponent<RectTransform>();
+            // rectTransform.anchoredPosition = new Vector2(rectTransform.rect.width, 0);
         }
         
         private void HideContextMenu()
         {
-            if (_contextMenu != null)
+            if (_contextMenu)
             {
                 Destroy(_contextMenu);
                 _contextMenu = null;

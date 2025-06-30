@@ -44,12 +44,12 @@ namespace UI.Inventory
         
         private void InitializeInventory()
         {
-            if (itemDatabase == null)
+            if (!itemDatabase)
             {
                 itemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
             }
             
-            if (adaptiveInventory != null && toggleInventoryAction.action != null)
+            if (adaptiveInventory && toggleInventoryAction.action != null)
             {
                 adaptiveInventory.ToggleInventoryAction = toggleInventoryAction;
             }
@@ -74,7 +74,8 @@ namespace UI.Inventory
         
         public void ToggleInventory()
         {
-            if (adaptiveInventory != null)
+            Debug.Log("GGGGGGGGG");
+            if (adaptiveInventory)
             {
                 adaptiveInventory.ToggleInventory();
             }

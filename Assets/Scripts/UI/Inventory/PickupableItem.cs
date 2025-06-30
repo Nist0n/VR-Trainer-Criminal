@@ -15,6 +15,9 @@ namespace UI.Inventory
         [SerializeField] private ToolCategory category = ToolCategory.General;
         [SerializeField] private bool isStackable = false;
         [SerializeField] private int maxStackSize = 1;
+        [SerializeField] private Sprite icon;
+        [SerializeField] private GameObject prefab;
+        [SerializeField] private string description;
         
         [Header("Visual Feedback")]
         [SerializeField] private bool showPickupPrompt = true;
@@ -35,29 +38,32 @@ namespace UI.Inventory
         private Renderer _renderer;
         private bool _isHighlighted = false;
         private bool _isPlayerNearby = false;
+        private GameObject _player;
         
         public string ItemId => itemId;
         public string DisplayName => displayName;
         public ToolCategory Category => category;
         public bool IsStackable => isStackable;
         public int MaxStackSize => maxStackSize;
+        public GameObject Prefab => prefab;
+        public Sprite Icon => icon;
+        public string Description => description;
         
         private void Start()
         {
+            _player = GameObject.FindGameObjectWithTag("Player");
             _renderer = GetComponent<Renderer>();
-            if (_renderer != null && originalMaterial == null)
+            if (_renderer && !originalMaterial)
             {
                 originalMaterial = _renderer.material;
             }
             
-            // Создаем подсказку если нужно
-            if (showPickupPrompt && pickupPrompt == null)
+            if (showPickupPrompt && !pickupPrompt)
             {
                 CreatePickupPrompt();
             }
             
-            // Скрываем подсказку изначально
-            if (pickupPrompt != null)
+            if (pickupPrompt)
             {
                 pickupPrompt.SetActive(false);
             }
@@ -73,17 +79,9 @@ namespace UI.Inventory
         
         private void CheckPlayerProximity()
         {
-            // Проверяем расстояние до игрока
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player == null)
+            if (_player)
             {
-                // Ищем по камере если нет тега Player
-                player = Camera.main?.gameObject;
-            }
-            
-            if (player != null)
-            {
-                float distance = Vector3.Distance(transform.position, player.transform.position);
+                float distance = Vector3.Distance(transform.position, _player.transform.position);
                 bool wasNearby = _isPlayerNearby;
                 _isPlayerNearby = distance <= interactionDistance;
                 
@@ -103,7 +101,7 @@ namespace UI.Inventory
         
         private void OnPlayerEnter()
         {
-            if (showPickupPrompt && pickupPrompt != null)
+            if (showPickupPrompt && pickupPrompt)
             {
                 pickupPrompt.SetActive(true);
             }
@@ -113,7 +111,7 @@ namespace UI.Inventory
         
         private void OnPlayerExit()
         {
-            if (showPickupPrompt && pickupPrompt != null)
+            if (showPickupPrompt && pickupPrompt)
             {
                 pickupPrompt.SetActive(false);
             }
@@ -127,7 +125,7 @@ namespace UI.Inventory
             
             _isHighlighted = true;
             
-            if (_renderer != null && highlightMaterial != null)
+            if (_renderer && highlightMaterial)
             {
                 _renderer.material = highlightMaterial;
             }
@@ -141,7 +139,7 @@ namespace UI.Inventory
             
             _isHighlighted = false;
             
-            if (_renderer != null && originalMaterial != null)
+            if (_renderer && originalMaterial)
             {
                 _renderer.material = originalMaterial;
             }
@@ -161,40 +159,32 @@ namespace UI.Inventory
         {
             if (!CanBePickedUp()) return;
             
-            // Вызываем событие
             onPickup?.Invoke();
             
-            // Добавляем в инвентарь
             var inventory = FindAnyObjectByType<AdaptiveGridInventory>();
-            if (inventory != null)
+            if (inventory)
             {
                 inventory.AddItemToInventory(itemId);
             }
             
-            // Уничтожаем объект
             Destroy(gameObject);
         }
         
         private void CreatePickupPrompt()
         {
-            // Создаем простую подсказку
             GameObject prompt = new GameObject("PickupPrompt");
             prompt.transform.SetParent(transform);
             
-            // Добавляем Canvas для UI
             Canvas canvas = prompt.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.WorldSpace;
             canvas.worldCamera = Camera.main;
             
-            // Добавляем Canvas Scaler
             CanvasScaler scaler = prompt.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1920, 1080);
             
-            // Добавляем Graphic Raycaster
             prompt.AddComponent<GraphicRaycaster>();
             
-            // Создаем фон
             GameObject background = new GameObject("Background");
             background.transform.SetParent(prompt.transform);
             
@@ -205,7 +195,6 @@ namespace UI.Inventory
             bgRect.sizeDelta = new Vector2(200, 50);
             bgRect.anchoredPosition = new Vector2(0, 1.5f);
             
-            // Создаем текст
             GameObject textObj = new GameObject("Text");
             textObj.transform.SetParent(prompt.transform);
             
@@ -222,7 +211,6 @@ namespace UI.Inventory
             pickupPrompt = prompt;
         }
         
-        // Методы для настройки в инспекторе
         public void SetItemId(string newItemId)
         {
             itemId = newItemId;
@@ -238,38 +226,6 @@ namespace UI.Inventory
             category = newCategory;
         }
         
-        // Автоматическое определение настроек на основе имени объекта
-        [ContextMenu("Auto Setup From Name")]
-        public void AutoSetupFromName()
-        {
-            string objName = gameObject.name.ToLower();
-            
-            // Определяем категорию
-            if (objName.Contains("brush") || objName.Contains("scotch") || objName.Contains("tape"))
-            {
-                category = ToolCategory.Sampling;
-            }
-            else if (objName.Contains("microscope") || objName.Contains("magnifier") || objName.Contains("lens"))
-            {
-                category = ToolCategory.Analysis;
-            }
-            else if (objName.Contains("camera") || objName.Contains("photo") || objName.Contains("notebook"))
-            {
-                category = ToolCategory.Documentation;
-            }
-            else
-            {
-                category = ToolCategory.General;
-            }
-            
-            // Устанавливаем ID и имя
-            itemId = gameObject.name;
-            displayName = gameObject.name;
-            
-            Debug.Log($"Auto setup completed for {gameObject.name}: Category = {category}");
-        }
-        
-        // Визуализация в редакторе
         private void OnDrawGizmosSelected()
         {
             if (requirePlayerProximity)

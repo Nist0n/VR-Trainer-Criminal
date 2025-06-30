@@ -7,15 +7,15 @@ namespace Items
     {
         private void OnTriggerStay(Collider other)
         {
-            if (other.CompareTag("Glass"))
+            if (other.CompareTag("Fingerprint"))
             {
                 Fingerprint fingerprint = other.gameObject.GetComponent<Fingerprint>();
                 
-                if (fingerprint != null)
+                if (fingerprint)
                 {
                     FingerprintData data = fingerprint.GetEvidenceData() as FingerprintData;
                     
-                    if (data != null && !data.IsDiscovered)
+                    if (data && !data.IsDiscovered)
                     {
                         fingerprint.Activate();
                         Debug.Log($"Found fingerprint belonging to: {data.OwnerName}");

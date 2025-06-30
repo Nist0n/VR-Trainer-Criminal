@@ -329,16 +329,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64292939c74b3344f91ca28f2cd135b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: otpechatok
-  displayName: Otpechatok
-  category: 2
+  itemId: FingerprintSokolova
+  displayName: "\u041E\u0442\u043F\u0435\u0447\u0430\u0442\u043E\u043A"
+  category: 1
   isStackable: 1
-  maxStackSize: 30
+  maxStackSize: 100
+  icon: {fileID: 21300000, guid: 1d1eacae9d4fba94c9227e4230c96327, type: 3}
+  prefab: {fileID: 5674236043927776451}
+  description: "\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0439
+    \u043E\u0442\u043F\u0435\u0447\u0430\u0442\u043E\u043A"
   showPickupPrompt: 0
   pickupPrompt: {fileID: 0}
   highlightMaterial: {fileID: 0}
   originalMaterial: {fileID: 0}
-  interactionDistance: 3
+  interactionDistance: 1
   playerLayer:
     serializedVersion: 2
     m_Bits: 4294967295

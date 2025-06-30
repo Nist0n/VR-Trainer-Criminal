@@ -129,6 +129,9 @@ GameObject:
   - component: {fileID: 164444714935539298}
   - component: {fileID: 570499972482118134}
   - component: {fileID: 6280584327789709199}
+  - component: {fileID: -2006627270630260687}
+  - component: {fileID: 1881082074104246546}
+  - component: {fileID: 7668224304879415490}
   m_Layer: 0
   m_Name: brush_002
   m_TagString: Untagged
@@ -145,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 2158207836040551336}
   serializedVersion: 2
   m_LocalRotation: {x: 0.68138963, y: -0.68138963, z: 0.18896611, w: 0.18896611}
-  m_LocalPosition: {x: 2.3451, y: 1.246, z: 2.007}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -181,7 +184,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &570499972482118134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,8 +350,80 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.019436566, y: 0.008630037, z: 0.15158696}
-  m_Center: {x: -0.025436372, y: 0.0061062574, z: 0.0035210918}
+  m_Size: {x: 0.023188269, y: 0.008630037, z: 0.1527155}
+  m_Center: {x: -0.024931064, y: 0.0061062574, z: 0.002956908}
+--- !u!114 &-2006627270630260687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2158207836040551336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64292939c74b3344f91ca28f2cd135b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: Brush
+  displayName: "\u041A\u0438\u0441\u0442\u044C"
+  category: 0
+  isStackable: 0
+  maxStackSize: 1
+  icon: {fileID: 21300000, guid: 7d7a2f6c5e996e24388af5a8227afdcf, type: 3}
+  prefab: {fileID: 2158207836040551336}
+  description: "\u041A\u0438\u0441\u0442\u044C \u0434\u043B\u044F \u043F\u0440\u043E\u044F\u0432\u043B\u0435\u043D\u0438\u044F
+    \u043E\u0442\u043F\u0435\u0447\u0430\u0442\u043A\u043E\u0432"
+  showPickupPrompt: 0
+  pickupPrompt: {fileID: 0}
+  highlightMaterial: {fileID: 0}
+  originalMaterial: {fileID: 0}
+  interactionDistance: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  requirePlayerProximity: 1
+  onPickup:
+    m_PersistentCalls:
+      m_Calls: []
+  onHighlight:
+    m_PersistentCalls:
+      m_Calls: []
+  onUnhighlight:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1881082074104246546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2158207836040551336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32c8d367db343d34b8b820800b07a481, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &7668224304879415490
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2158207836040551336}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.024725651, y: 0.008435445, z: 0.005822985}
+  m_Center: {x: -0.024901224, y: 0.005928994, z: -0.073584355}
 --- !u!1 &7492011539584946489
 GameObject:
   m_ObjectHideFlags: 0
