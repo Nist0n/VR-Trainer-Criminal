@@ -18,6 +18,7 @@ namespace UI.Inventory
         [SerializeField] private Button evidenceButton;
         [SerializeField] private Button notebookButton;
         [SerializeField] private GameObject adaptiveGridInventory;
+        [SerializeField] private GameObject header;
         
         
         [Header("Input")]
@@ -40,9 +41,9 @@ namespace UI.Inventory
         private void Start()
         {
             returnButton.onClick.AddListener(ReturnToMainMenu);
-            instrumentButton.onClick.AddListener(() => OnCategoryTabClicked(ToolCategory.Sampling));
-            evidenceButton.onClick.AddListener(() => OnCategoryTabClicked(ToolCategory.Analysis));
-            notebookButton.onClick.AddListener(() => OnCategoryTabClicked(ToolCategory.Documentation));
+            instrumentButton.onClick.AddListener(() => OnCategoryTabClicked(ToolCategory.Tools));
+            evidenceButton.onClick.AddListener(() => OnCategoryTabClicked(ToolCategory.Traces));
+            notebookButton.onClick.AddListener(() => OnCategoryTabClicked(ToolCategory.Photos));
             LoadInitialItems();
             adaptiveGridInventory.SetActive(false);
         }
@@ -81,6 +82,7 @@ namespace UI.Inventory
             }
             
             ShowReturnButton();
+            HideHeader();
             
             Debug.Log($"Вошли в категорию: {category}");
         }
@@ -90,6 +92,8 @@ namespace UI.Inventory
             ShowAllCategories();
             
             HideReturnButton();
+            
+            ShowHeader();
             
             HideGridContainers();
         }
@@ -110,6 +114,16 @@ namespace UI.Inventory
         private void HideReturnButton()
         {
             returnButton.gameObject.SetActive(false);
+        }
+
+        private void ShowHeader()
+        {
+            header.SetActive(true);
+        }
+
+        private void HideHeader()
+        {
+            header.SetActive(false);
         }
         
         private void HideGridContainers()

@@ -12,7 +12,7 @@ namespace UI.Inventory
         [Header("Item Settings")]
         [SerializeField] private string itemId;
         [SerializeField] private string displayName;
-        [SerializeField] private ToolCategory category = ToolCategory.General;
+        [SerializeField] private ToolCategory category = ToolCategory.Tools;
         [SerializeField] private bool isStackable = false;
         [SerializeField] private int maxStackSize = 1;
         [SerializeField] private Sprite icon;

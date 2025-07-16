@@ -115,38 +115,38 @@ namespace UI.Inventory
         }
     }
     
-    public static class InventoryItemExtensions
-    {
-        public static bool IsSamplingTool(this InventoryItem item)
-        {
-            return item.category == ToolCategory.Sampling;
-        }
-        
-        public static bool IsAnalysisTool(this InventoryItem item)
-        {
-            return item.category == ToolCategory.Analysis;
-        }
-        
-        public static bool IsDocumentationTool(this InventoryItem item)
-        {
-            return item.category == ToolCategory.Documentation;
-        }
-        
-        public static bool IsGeneralTool(this InventoryItem item)
-        {
-            return item.category == ToolCategory.General;
-        }
-        
-        public static string GetCategoryDisplayName(this ToolCategory category)
-        {
-            return category switch
-            {
-                ToolCategory.Sampling => "Сбор образцов",
-                ToolCategory.Analysis => "Анализ",
-                ToolCategory.Documentation => "Документирование",
-                ToolCategory.General => "Общие",
-                _ => "Неизвестно"
-            };
-        }
-    }
+    // public static class InventoryItemExtensions
+    // {
+    //     public static bool IsSamplingTool(this InventoryItem item)
+    //     {
+    //         return item.category == ToolCategory.Sampling;
+    //     }
+    //     
+    //     public static bool IsAnalysisTool(this InventoryItem item)
+    //     {
+    //         return item.category == ToolCategory.Analysis;
+    //     }
+    //     
+    //     public static bool IsDocumentationTool(this InventoryItem item)
+    //     {
+    //         return item.category == ToolCategory.Documentation;
+    //     }
+    //     
+    //     public static bool IsGeneralTool(this InventoryItem item)
+    //     {
+    //         return item.category == ToolCategory.General;
+    //     }
+    //     
+    //     public static string GetCategoryDisplayName(this ToolCategory category)
+    //     {
+    //         return category switch
+    //         {
+    //             ToolCategory.Sampling => "Сбор образцов",
+    //             ToolCategory.Analysis => "Анализ",
+    //             ToolCategory.Documentation => "Документирование",
+    //             ToolCategory.General => "Общие",
+    //             _ => "Неизвестно"
+    //         };
+    //     }
+    // }
 } 

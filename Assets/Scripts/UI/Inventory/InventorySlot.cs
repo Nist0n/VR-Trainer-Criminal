@@ -148,8 +148,9 @@ namespace UI.Inventory
             var contextMenu = _contextMenu.GetComponent<InventoryContextMenu>();
             contextMenu.Initialize(_item, this, _spawnpoint);
             
-            // RectTransform rectTransform = _contextMenu.GetComponent<RectTransform>();
-            // rectTransform.anchoredPosition = new Vector2(rectTransform.rect.width, 0);
+            RectTransform rectTransform = _contextMenu.GetComponent<RectTransform>();
+            RectTransform temp = gameObject.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector2(rectTransform.rect.width + 17 - temp.anchoredPosition.x, 0);
         }
         
         private void HideContextMenu()

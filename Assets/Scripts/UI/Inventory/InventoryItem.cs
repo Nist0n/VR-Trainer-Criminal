@@ -22,9 +22,8 @@ namespace UI.Inventory
     
     public enum ToolCategory
     {
-        Sampling,      // Кисти, скотч, пинцеты
-        Analysis,      // Микроскопы, лупы
-        Documentation, // Фотоаппараты, блокноты
-        General        // Общие инструменты
+        Tools,      // Инструменты
+        Traces,      // Следы
+        Photos // Фото
     }
 } 
