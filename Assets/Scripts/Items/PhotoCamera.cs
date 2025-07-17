@@ -1,5 +1,6 @@
 using System;
 using UI.Inventory;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -12,9 +13,11 @@ namespace Items
 
         private PhotoAlbum _photoAlbum;
         private bool _isHeld = false;
+        private Camera _photoCamera;
 
         private void Awake()
         {
+            _photoCamera = GetComponentInChildren<Camera>();
             _photoAlbum = FindAnyObjectByType<PhotoAlbum>();
             grabInteractable = GetComponent<XRGrabInteractable>();
             grabInteractable.selectEntered.AddListener(_ => _isHeld = true);
@@ -26,7 +29,6 @@ namespace Items
             if (_isHeld && Input.GetKeyDown(KeyCode.F))
             {
                 TakePhoto();
-                Debug.Log("ФОТО");
             }
         }
 
@@ -39,6 +41,22 @@ namespace Items
             RenderTexture.active = null;
             
             _photoAlbum.AddPhoto(photo, DateTime.Now);
+
+            var fingerprints = FindObjectsByType<Fingerprint>(FindObjectsSortMode.None);
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(_photoCamera);
+            
+            Debug.Log(fingerprints.Length + " Количество отпечатков");
+
+            foreach (var fp in fingerprints)
+            {
+                var rend = fp.GetComponentInParent<Renderer>();
+                Debug.Log(rend);
+                if (rend && GeometryUtility.TestPlanesAABB(planes, rend.bounds))
+                {
+                    Debug.Log("Найден отпечаток");
+                    fp.FixatePhoto();
+                }
+            }
         }
     }
 }

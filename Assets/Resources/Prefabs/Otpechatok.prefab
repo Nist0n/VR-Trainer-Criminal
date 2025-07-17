@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 3692847502427814751}
   - component: {fileID: 3332295522204055859}
   - component: {fileID: 4541248741965404123}
-  - component: {fileID: 6521808923357526882}
+  - component: {fileID: 8452584412642896846}
   m_Layer: 0
   m_Name: Otpechatok
   m_TagString: Untagged
@@ -170,7 +170,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &4541248741965404123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
---- !u!114 &6521808923357526882
+--- !u!114 &8452584412642896846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,14 +326,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5674236043927776451}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64292939c74b3344f91ca28f2cd135b7, type: 3}
+  m_Script: {fileID: 11500000, guid: d3dcf7074b3b3c94f9e4a8e9703bb663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: FingerprintSokolova
   displayName: "\u041E\u0442\u043F\u0435\u0447\u0430\u0442\u043E\u043A"
   category: 1
-  isStackable: 1
-  maxStackSize: 100
+  isStackable: 0
+  maxStackSize: 1
   icon: {fileID: 21300000, guid: 1d1eacae9d4fba94c9227e4230c96327, type: 3}
   prefab: {fileID: 5674236043927776451}
   description: "\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0439
@@ -356,3 +356,4 @@ MonoBehaviour:
   onUnhighlight:
     m_PersistentCalls:
       m_Calls: []
+  SurfaceName: 

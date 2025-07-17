@@ -6,6 +6,10 @@ namespace Items
     public class Fingerprint : Evidence
     {
         public string FingerprintId;
+        public string SurfaceName = "Не указано";
+        public DateTime? TimeOfPhoto;
+        [SerializeField] private string assignedSurfaceName;
+        private bool _pendingDestroy = false;
         
         protected override void Awake()
         {
@@ -14,6 +18,13 @@ namespace Items
             {
                 evidenceObject.SetActive(false);
             }
+        }
+        
+        private void Update()
+        {
+            if (!_pendingDestroy || !evidenceObject) return;
+            Destroy(evidenceObject);
+            _pendingDestroy = false;
         }
 
         protected override void LoadEvidenceData()
@@ -34,10 +45,20 @@ namespace Items
             
             EvidenceDatabase.Instance.DiscoverEvidence(evidenceId);
         }
+        
+        public void FixatePhoto()
+        {
+            if (!TimeOfPhoto.HasValue)
+            {
+                TimeOfPhoto = DateTime.Now;
+                SurfaceName = assignedSurfaceName;
+                Debug.Log($"Отпечаток зафиксирован: {SurfaceName} в {TimeOfPhoto}");
+            }
+        }
 
         public override void DeActivate()
         {
-            Destroy(evidenceObject);
+            _pendingDestroy = true;
         }
     }
 }

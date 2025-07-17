@@ -10,23 +10,23 @@ namespace UI.Inventory
     public class PickupableItem : MonoBehaviour
     {
         [Header("Item Settings")]
-        [SerializeField] private string itemId;
-        [SerializeField] private string displayName;
-        [SerializeField] private ToolCategory category = ToolCategory.Tools;
-        [SerializeField] private bool isStackable = false;
-        [SerializeField] private int maxStackSize = 1;
-        [SerializeField] private Sprite icon;
-        [SerializeField] private GameObject prefab;
-        [SerializeField] private string description;
+        [SerializeField] protected string itemId;
+        [SerializeField] protected string displayName;
+        [SerializeField] protected ToolCategory category = ToolCategory.Tools;
+        [SerializeField] protected bool isStackable = false;
+        [SerializeField] protected int maxStackSize = 1;
+        [SerializeField] protected Sprite icon;
+        [SerializeField] protected GameObject prefab;
+        [SerializeField] protected string description;
         
         [Header("Visual Feedback")]
-        [SerializeField] private bool showPickupPrompt = true;
+        [SerializeField] protected bool showPickupPrompt = true;
         [SerializeField] private GameObject pickupPrompt;
         [SerializeField] private Material highlightMaterial;
         [SerializeField] private Material originalMaterial;
         
         [Header("Interaction")]
-        [SerializeField] private float interactionDistance = 2f;
+        [SerializeField] protected float interactionDistance = 2f;
         [SerializeField] private LayerMask playerLayer = -1;
         [SerializeField] private bool requirePlayerProximity = true;
         
