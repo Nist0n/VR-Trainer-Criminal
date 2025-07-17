@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 4754430011892589431}
   - component: {fileID: 4266208281994830219}
   - component: {fileID: 5024057304257607901}
+  - component: {fileID: -7541200060861957035}
   m_Layer: 0
   m_Name: 3DCamera
   m_TagString: Untagged
@@ -435,6 +436,20 @@ MonoBehaviour:
   onUnhighlight:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-7541200060861957035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5227129675142266755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a081e9e9accbcb449935cc31a811617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderTexture: {fileID: 8400000, guid: 40f44763b2fbac04a838612d261379ab, type: 2}
+  grabInteractable: {fileID: 4266208281994830219}
 --- !u!1 &6540718903351170756
 GameObject:
   m_ObjectHideFlags: 0

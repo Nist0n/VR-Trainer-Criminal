@@ -298,7 +298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: VolosokKolosok
   displayName: VolosokKolosok
-  category: 2
+  category: 1
   isStackable: 1
   maxStackSize: 15
   icon: {fileID: 21300000, guid: 244fae62b395a2942b1d834beb827d65, type: 3}
