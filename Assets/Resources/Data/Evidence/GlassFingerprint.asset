@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EvidenceId: GlassFingerprint
   OwnerName: Kate
-  IsDiscovered: 1
+  IsDiscovered: 0
   OriginalPosition: {x: 0, y: 0, z: 0}

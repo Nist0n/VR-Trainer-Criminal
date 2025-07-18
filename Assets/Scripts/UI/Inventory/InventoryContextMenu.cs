@@ -108,12 +108,18 @@ namespace UI.Inventory
         
         public override void Execute(InventoryItem item, InventorySlot slot)
         {
-            if (item.prefab != null)
+            if (item.prefab)
             {
+                if (item.prefab.GetComponent<PickupableFingerprint>())
+                {
+                    item.prefab.GetComponent<PickupableFingerprint>().ItemID(item.itemId);
+                    // item.prefab.GetComponent<PickupableFingerprint>().SurfaceName = item.;
+                    item.prefab.GetComponent<PickupableFingerprint>().ItemID(item.itemId);
+                }
                 GameObject spawnedItem = Object.Instantiate(item.prefab, _spawnpoint.position, Quaternion.identity);
                 
                 Rigidbody rb = spawnedItem.GetComponent<Rigidbody>();
-                if (rb != null)
+                if (rb)
                 {
                     rb.isKinematic = false;
                 }

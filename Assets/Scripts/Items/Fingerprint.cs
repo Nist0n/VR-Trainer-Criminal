@@ -31,7 +31,7 @@ namespace Items
         {
             Data = EvidenceDatabase.Instance.GetEvidenceById<FingerprintData>(evidenceId);
             
-            if (Data == null)
+            if (!Data)
             {
                 Debug.LogError($"Fingerprint with ID {evidenceId} not found in database!");
             }
@@ -39,7 +39,7 @@ namespace Items
         
         public override void Activate()
         {
-            if (Data == null) return;
+            if (!Data) return;
             
             evidenceObject.SetActive(true);
             

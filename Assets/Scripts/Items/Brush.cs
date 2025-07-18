@@ -5,7 +5,7 @@ namespace Items
 {
     public class Brush : MonoBehaviour
     {
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Fingerprint"))
             {

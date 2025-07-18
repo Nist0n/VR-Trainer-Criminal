@@ -7,5 +7,10 @@ namespace UI.Inventory
     {
         public string SurfaceName;
         public DateTime? TimeOfPhoto;
+        public void ItemID(string id)
+        {
+            itemId = id;
+            Debug.Log(itemId + " Поставленный ID");
+        }
     }
 }

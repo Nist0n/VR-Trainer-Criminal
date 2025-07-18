@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EvidenceId: SafeFingerprint
   OwnerName: Kate
-  IsDiscovered: 0
+  IsDiscovered: 1
   OriginalPosition: {x: 0, y: 0, z: 0}
