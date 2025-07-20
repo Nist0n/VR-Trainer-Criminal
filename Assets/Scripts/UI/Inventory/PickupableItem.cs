@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -18,6 +19,7 @@ namespace UI.Inventory
         [SerializeField] protected Sprite icon;
         [SerializeField] protected GameObject prefab;
         [SerializeField] protected string description;
+        [SerializeField] protected string surfaceName;
         
         [Header("Visual Feedback")]
         [SerializeField] protected bool showPickupPrompt = true;
@@ -39,6 +41,7 @@ namespace UI.Inventory
         private bool _isHighlighted = false;
         private bool _isPlayerNearby = false;
         private GameObject _player;
+        private DateTime? _timeOfPhoto;
         
         public string ItemId => itemId;
         public string DisplayName => displayName;
@@ -48,6 +51,12 @@ namespace UI.Inventory
         public GameObject Prefab => prefab;
         public Sprite Icon => icon;
         public string Description => description;
+        public string SurfaceName => surfaceName;
+        public DateTime? TimeOfPhoto => _timeOfPhoto;
+
+        public void SetItemID(string id) => itemId = id;
+        public void SetTimeOfPhoto(DateTime? time) => _timeOfPhoto = time;
+        public void SetSurfaceName(string nameOfSurface) => surfaceName = nameOfSurface;
         
         private void Start()
         {

@@ -40,7 +40,7 @@ namespace UI.Inventory
         
         private void UpdateUI()
         {
-            if (_item != null)
+            if (_item)
             {
                 ItemNameText.text = _item.displayName;
                 DescriptionText.text = _item.description;
@@ -52,7 +52,7 @@ namespace UI.Inventory
             // Очищаем старые кнопки
             foreach (var button in _actionButtons)
             {
-                if (button != null)
+                if (button)
                     Destroy(button.gameObject);
             }
             _actionButtons.Clear();
@@ -85,7 +85,7 @@ namespace UI.Inventory
         
         public virtual bool CanExecute(InventoryItem item)
         {
-            return item != null;
+            return item;
         }
         
         public virtual void Execute(InventoryItem item, InventorySlot slot)
@@ -110,12 +110,9 @@ namespace UI.Inventory
         {
             if (item.prefab)
             {
-                if (item.prefab.GetComponent<PickupableFingerprint>())
-                {
-                    item.prefab.GetComponent<PickupableFingerprint>().ItemID(item.itemId);
-                    // item.prefab.GetComponent<PickupableFingerprint>().SurfaceName = item.;
-                    item.prefab.GetComponent<PickupableFingerprint>().ItemID(item.itemId);
-                }
+                item.prefab.GetComponent<PickupableItem>().SetItemID(item.itemId);
+                item.prefab.GetComponent<PickupableItem>().SetSurfaceName(item.surfaceName);
+                item.prefab.GetComponent<PickupableItem>().SetTimeOfPhoto(item.timeOfPhoto);
                 GameObject spawnedItem = Object.Instantiate(item.prefab, _spawnpoint.position, Quaternion.identity);
                 
                 Rigidbody rb = spawnedItem.GetComponent<Rigidbody>();
@@ -156,7 +153,7 @@ namespace UI.Inventory
         public override bool CanExecute(InventoryItem item)
         {
             // Проверяем, можно ли использовать предмет
-            return item != null && item.itemId.Contains("usable");
+            return item && item.itemId.Contains("usable");
         }
         
         public override void Execute(InventoryItem item, InventorySlot slot)

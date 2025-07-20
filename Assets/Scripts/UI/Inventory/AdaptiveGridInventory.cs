@@ -176,7 +176,8 @@ namespace UI.Inventory
             {
                 if (container.name.Contains(item.category.ToString()))
                 {
-                    Debug.Log("Так быть должно");
+                    Debug.Log(item.itemId + " - ID при добавленни в инвентарь");
+                    Debug.Log(item.prefab.GetComponent<PickupableItem>().ItemId + " - ID префаба при добавленни в инвентарь");
                     InventorySlot slot = Instantiate(slotPrefab, container.transform).GetComponent<InventorySlot>();
                     slot.SetItem(item, spawnPoint);
                     _slots.Add(slot);
@@ -235,6 +236,8 @@ namespace UI.Inventory
                 var item = inventoryItemDatabase.GetItemById(pickupableItem.ItemId);
                 if (item)
                 {
+                    Debug.Log(item.itemId + " - ID при поднятии предмета");
+                    Debug.Log(item.prefab.GetComponent<PickupableItem>().ItemId + " - ID префаба при поднятии предмета");
                     AddItem(item);
                     Destroy(pickupableItem.gameObject);
                 }
@@ -248,7 +251,7 @@ namespace UI.Inventory
                     else
                     {
                         InventoryItem newItem = inventoryItemDatabase.CreateItem(pickupableItem.ItemId, pickupableItem.DisplayName, pickupableItem.Icon,
-                            pickupableItem.Prefab, pickupableItem.Category, pickupableItem.IsStackable, pickupableItem.MaxStackSize, pickupableItem.Description);
+                            pickupableItem.Prefab, pickupableItem.Category, pickupableItem.IsStackable, pickupableItem.MaxStackSize, pickupableItem.Description, pickupableItem.SurfaceName, pickupableItem.TimeOfPhoto);
                         AddItem(newItem);
                     }
                     Destroy(pickupableItem.gameObject);

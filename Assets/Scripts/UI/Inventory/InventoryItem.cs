@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace UI.Inventory
@@ -15,6 +16,8 @@ namespace UI.Inventory
         public Quaternion spawnRotation = Quaternion.identity;
         public bool isStackable = false;
         public int maxStackSize = 1;
+        public string surfaceName;
+        public DateTime? timeOfPhoto;
         
         [TextArea(2, 4)]
         public string description;

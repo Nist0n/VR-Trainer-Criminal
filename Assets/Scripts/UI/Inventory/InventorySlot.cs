@@ -77,7 +77,6 @@ namespace UI.Inventory
             if (!_item || _itemCount < amount) return false;
             
             _itemCount -= amount;
-            Debug.Log(_itemCount);
             if (_itemCount <= 0)
             {
                 ClearSlot();

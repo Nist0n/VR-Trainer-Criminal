@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Data;
@@ -81,7 +82,7 @@ namespace UI.Inventory
             }
         }
         
-        public InventoryItem CreateItem(string itemId, string displayName, Sprite icon, GameObject prefab, ToolCategory category, bool isStackable, int maxStackSize, string description = "")
+        public InventoryItem CreateItem(string itemId, string displayName, Sprite icon, GameObject prefab, ToolCategory category, bool isStackable, int maxStackSize, string description = "", string surfaceName = "", DateTime? timeOfPhoto = null)
         {
             var item = CreateInstance<InventoryItem>();
             
@@ -93,6 +94,8 @@ namespace UI.Inventory
             item.description = description;
             item.isStackable = isStackable;
             item.maxStackSize = maxStackSize;
+            item.surfaceName = surfaceName;
+            item.timeOfPhoto = timeOfPhoto;
             
             AssetDatabase.CreateAsset(item, $"Assets/Resources/Data/Items/{itemId}Item.asset");
             AssetDatabase.SaveAssets();

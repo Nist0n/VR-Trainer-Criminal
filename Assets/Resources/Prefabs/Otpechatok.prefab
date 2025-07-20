@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 3692847502427814751}
   - component: {fileID: 3332295522204055859}
   - component: {fileID: 4541248741965404123}
-  - component: {fileID: 8452584412642896846}
+  - component: {fileID: 1457582378943433577}
   m_Layer: 0
   m_Name: Otpechatok
   m_TagString: Untagged
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
---- !u!114 &8452584412642896846
+--- !u!114 &1457582378943433577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,10 +326,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5674236043927776451}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3dcf7074b3b3c94f9e4a8e9703bb663, type: 3}
+  m_Script: {fileID: 11500000, guid: 64292939c74b3344f91ca28f2cd135b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: FingerprintSokolova
+  itemId: GlassFingerprint
   displayName: "\u041E\u0442\u043F\u0435\u0447\u0430\u0442\u043E\u043A"
   category: 1
   isStackable: 0
@@ -338,11 +338,12 @@ MonoBehaviour:
   prefab: {fileID: 5674236043927776451}
   description: "\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0439
     \u043E\u0442\u043F\u0435\u0447\u0430\u0442\u043E\u043A"
+  surfaceName: 
   showPickupPrompt: 0
   pickupPrompt: {fileID: 0}
   highlightMaterial: {fileID: 0}
   originalMaterial: {fileID: 0}
-  interactionDistance: 1
+  interactionDistance: 2
   playerLayer:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -356,4 +357,3 @@ MonoBehaviour:
   onUnhighlight:
     m_PersistentCalls:
       m_Calls: []
-  SurfaceName: 
