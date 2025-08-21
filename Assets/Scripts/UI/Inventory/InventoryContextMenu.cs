@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Data;
+using Items;
 using TMPro;
 using UnityEngine.Serialization;
 
@@ -69,8 +71,8 @@ namespace UI.Inventory
             {
                 case ItemActionType.Take:
                     return new TakeItemAction(_spawnpoint);
-                case ItemActionType.Drop:
-                    return new DropItemAction();
+                case ItemActionType.Analysis:
+                    return new AnalyzeItemAction();
                 case ItemActionType.Discover:
                     return new DiscoverItemAction();
                 default:
@@ -133,17 +135,21 @@ namespace UI.Inventory
     }
     
     [System.Serializable]
-    public class DropItemAction : InventoryAction
+    public class AnalyzeItemAction : InventoryAction
     {
-        public DropItemAction()
+        public AnalyzeItemAction()
         {
-            actionName = "Выбросить";
-            actionDescription = "Выбросить предмет из инвентаря";
+            actionName = "Отправить в лабораторию";
+            actionDescription = "Распознание владельца";
         }
         
         public override void Execute(InventoryItem item, InventorySlot slot)
         {
-            slot.ClearSlot();
+            InventoryItem discoveredItem = item.CreateCopy();
+            discoveredItem.RevealHiddenData();
+            discoveredItem.description += $" - {EvidenceDatabase.Instance.GetEvidenceById<FingerprintData>(discoveredItem.itemId).OwnerName}";
+            
+            slot.SetItem(discoveredItem, new RectTransform());
         }
     }
     

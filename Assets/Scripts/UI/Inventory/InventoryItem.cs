@@ -71,7 +71,7 @@ namespace UI.Inventory
     public enum ItemActionType
     {
         Take,
-        Drop,
+        Analysis,
         Discover
     }
 } 

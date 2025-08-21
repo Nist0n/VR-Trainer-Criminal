@@ -14979,7 +14979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: VolosokKolosok
-  displayName: VolosokKolosok
+  displayName: "\u0412\u043E\u043B\u043E\u0441"
   category: 1
   isStackable: 1
   maxStackSize: 15
