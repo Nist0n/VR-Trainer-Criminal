@@ -22,5 +22,8 @@ MonoBehaviour:
   isStackable: 1
   maxStackSize: 5
   surfaceName: 
+  hiddenDisplayName: 
   description: "\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0439
     \u043E\u0442\u043F\u0435\u0447\u0430\u0442\u043E\u043A"
+  hiddenDescription: 
+  availableActions: 00000000

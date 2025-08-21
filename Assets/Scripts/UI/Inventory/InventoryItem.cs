@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UI.Inventory
@@ -18,9 +19,45 @@ namespace UI.Inventory
         public int maxStackSize = 1;
         public string surfaceName;
         public DateTime? timeOfPhoto;
+        public string hiddenDisplayName;
         
         [TextArea(2, 4)]
         public string description;
+        
+        [TextArea(2, 4)]
+        public string hiddenDescription;
+        
+        [Header("Available Actions")]
+        [SerializeField]
+        public List<ItemActionType> availableActions = new List<ItemActionType>();
+        
+        public InventoryItem CreateCopy()
+        {
+            var copy = CreateInstance<InventoryItem>();
+            copy.itemId = this.itemId;
+            copy.displayName = this.displayName;
+            copy.icon = this.icon;
+            copy.prefab = this.prefab;
+            copy.category = this.category;
+            copy.spawnOffset = this.spawnOffset;
+            copy.spawnRotation = this.spawnRotation;
+            copy.isStackable = this.isStackable;
+            copy.maxStackSize = this.maxStackSize;
+            copy.surfaceName = this.surfaceName;
+            copy.timeOfPhoto = this.timeOfPhoto;
+            copy.hiddenDisplayName = this.hiddenDisplayName;
+            copy.description = this.description;
+            copy.hiddenDescription = this.hiddenDescription;
+            copy.availableActions = new List<ItemActionType>(this.availableActions);
+            return copy;
+        }
+        
+        public void RevealHiddenData()
+        {
+            displayName = hiddenDisplayName;
+            description = hiddenDescription;
+            availableActions.Clear();
+        }
     }
     
     public enum ToolCategory
@@ -28,5 +65,13 @@ namespace UI.Inventory
         Tools,      // Инструменты
         Traces,      // Следы
         Photos // Фото
+    }
+    
+    [System.Serializable]
+    public enum ItemActionType
+    {
+        Take,
+        Drop,
+        Discover
     }
 } 

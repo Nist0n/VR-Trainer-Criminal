@@ -17,9 +17,6 @@ namespace UI.Inventory
         public Button ActionButtonPrefab;
         
         [Header("Actions")]
-        [SerializeField]
-        public List<InventoryAction> AvailableActions;
-
         private Transform _spawnpoint;
         private InventoryItem _item;
         private InventorySlot _slot;
@@ -29,10 +26,7 @@ namespace UI.Inventory
         {
             _item = item;
             _slot = slot;
-
             _spawnpoint = spawnpoint;
-            
-            AvailableActions.Add(new TakeItemAction(_spawnpoint));
             
             UpdateUI();
             CreateActionButtons();
@@ -49,7 +43,6 @@ namespace UI.Inventory
         
         private void CreateActionButtons()
         {
-            // Очищаем старые кнопки
             foreach (var button in _actionButtons)
             {
                 if (button)
@@ -57,16 +50,31 @@ namespace UI.Inventory
             }
             _actionButtons.Clear();
             
-            // Создаем кнопки для доступных действий
-            foreach (var action in AvailableActions)
+            foreach (var actionType in _item.availableActions)
             {
-                if (action.CanExecute(_item))
+                InventoryAction action = CreateActionFromType(actionType);
+                if (action != null && action.CanExecute(_item))
                 {
                     Button button = Instantiate(ActionButtonPrefab, ButtonsContainer);
                     button.GetComponentInChildren<TextMeshProUGUI>().text = action.actionName;
                     button.onClick.AddListener(() => ExecuteAction(action));
                     _actionButtons.Add(button);
                 }
+            }
+        }
+        
+        private InventoryAction CreateActionFromType(ItemActionType actionType)
+        {
+            switch (actionType)
+            {
+                case ItemActionType.Take:
+                    return new TakeItemAction(_spawnpoint);
+                case ItemActionType.Drop:
+                    return new DropItemAction();
+                case ItemActionType.Discover:
+                    return new DiscoverItemAction();
+                default:
+                    return null;
             }
         }
         
@@ -90,8 +98,6 @@ namespace UI.Inventory
         
         public virtual void Execute(InventoryItem item, InventorySlot slot)
         {
-            // Базовая реализация - можно переопределить в наследниках
-            Debug.Log($"Executing {actionName} on {item.displayName}");
         }
     }
     
@@ -142,24 +148,25 @@ namespace UI.Inventory
     }
     
     [System.Serializable]
-    public class UseItemAction : InventoryAction
+    public class DiscoverItemAction : InventoryAction
     {
-        public UseItemAction()
+        public DiscoverItemAction()
         {
-            actionName = "Использовать";
-            actionDescription = "Использовать предмет";
+            actionName = "Отправить в лабораторию";
+            actionDescription = "Распознание следа";
         }
         
         public override bool CanExecute(InventoryItem item)
         {
-            // Проверяем, можно ли использовать предмет
-            return item && item.itemId.Contains("usable");
+            return item;
         }
         
         public override void Execute(InventoryItem item, InventorySlot slot)
         {
-            // Логика использования предмета
-            Debug.Log($"Using {item.displayName}");
+            InventoryItem discoveredItem = item.CreateCopy();
+            discoveredItem.RevealHiddenData();
+            
+            slot.SetItem(discoveredItem, new RectTransform());
         }
     }
 } 
