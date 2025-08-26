@@ -24,7 +24,7 @@ namespace UI.Inventory
         [SerializeField] private InputActionProperty selectAction;
 
         private Transform _spawnpoint;
-        private AdaptiveGridInventory _inventory;
+        public AdaptiveGridInventory Inventory;
         private InventoryItem _item;
         private int _itemCount = 0;
         private GameObject _contextMenu;
@@ -36,7 +36,7 @@ namespace UI.Inventory
         
         private void Start()
         {
-            _inventory = GetComponentInParent<AdaptiveGridInventory>();
+            Inventory = GetComponentInParent<AdaptiveGridInventory>();
             UpdateVisuals();
         }
         
@@ -58,7 +58,7 @@ namespace UI.Inventory
         
         public void ClearSlot()
         {
-            _inventory.RemoveEmptySlot(_item.itemId);
+            Inventory.RemoveEmptySlot(_item.itemId);
             var database = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
             database.RemoveItem(_item);
         }

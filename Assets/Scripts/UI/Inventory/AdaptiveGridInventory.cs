@@ -17,7 +17,6 @@ namespace UI.Inventory
         [SerializeField] private Button instrumentButton;
         [SerializeField] private Button evidenceButton;
         [SerializeField] private Button notebookButton;
-        [SerializeField] private GameObject adaptiveGridInventory;
         [SerializeField] private GameObject header;
         
         
@@ -37,6 +36,8 @@ namespace UI.Inventory
         private ToolCategory _currentCategory;
         private bool _isInventoryOpen;
         private List<InventorySlot> _slots = new List<InventorySlot>();
+        
+        public GameObject adaptiveGridInventory;
         
         private void Start()
         {
@@ -176,8 +177,6 @@ namespace UI.Inventory
             {
                 if (container.name.Contains(item.category.ToString()))
                 {
-                    Debug.Log(item.itemId + " - ID при добавленни в инвентарь");
-                    Debug.Log(item.prefab.GetComponent<PickupableItem>().ItemId + " - ID префаба при добавленни в инвентарь");
                     InventorySlot slot = Instantiate(slotPrefab, container.transform).GetComponent<InventorySlot>();
                     slot.SetItem(item, spawnPoint);
                     _slots.Add(slot);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Data;
 using Items;
 using TMPro;
+using UI.Inventory.Additional_UI;
 using UnityEngine.Serialization;
 
 namespace UI.Inventory
@@ -75,6 +76,8 @@ namespace UI.Inventory
                     return new AnalyzeItemAction();
                 case ItemActionType.Discover:
                     return new DiscoverItemAction();
+                case ItemActionType.OpenUI:
+                    return new OpenAdditionalInfoAction();
                 default:
                     return null;
             }
@@ -173,6 +176,33 @@ namespace UI.Inventory
             discoveredItem.RevealHiddenData();
             
             slot.SetItem(discoveredItem, new RectTransform());
+        }
+    }
+    
+    [System.Serializable]
+    public class OpenAdditionalInfoAction : InventoryAction
+    {
+        public OpenAdditionalInfoAction()
+        {
+            actionName = "Открыть заметки";
+            actionDescription = "Посмотреть имеющуюся информацию";
+        }
+        
+        public override bool CanExecute(InventoryItem item)
+        {
+            return item;
+        }
+        
+        public override void Execute(InventoryItem item, InventorySlot slot)
+        {
+            var inventoryItemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
+            var uiItem = inventoryItemDatabase.GetItemById(item.itemId) as InventoryUIItem;
+            if (uiItem)
+            {
+                var uiPrefab = uiItem.UIprefab;
+                uiPrefab.GetComponent<AdditionalInfoUI>().TextInfo.text = uiItem.additionalInfo;
+                Object.Instantiate(uiPrefab, slot.Inventory.adaptiveGridInventory.transform);
+            }
         }
     }
 } 

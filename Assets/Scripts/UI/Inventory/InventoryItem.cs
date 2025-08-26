@@ -72,6 +72,7 @@ namespace UI.Inventory
     {
         Take,
         Analysis,
-        Discover
+        Discover,
+        OpenUI
     }
 } 

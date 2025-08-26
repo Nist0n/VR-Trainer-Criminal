@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: scotch
   displayName: "\u0421\u043A\u043E\u0442\u0447"
-  icon: {fileID: 21300000, guid: 2f8349570a152884fb6cf7ebdc8c18b3, type: 3}
+  icon: {fileID: 21300000, guid: 9719e70b39c0f29409b45e476ca5b4b1, type: 3}
   prefab: {fileID: 4871062398994354794, guid: 879fecc2255f7d246bb0a3bf06d38c86, type: 3}
   category: 0
   spawnOffset: {x: 0, y: 0, z: 0}

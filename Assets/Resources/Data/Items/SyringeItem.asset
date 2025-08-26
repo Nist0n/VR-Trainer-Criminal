@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: Syringe
   displayName: "\u0428\u043F\u0440\u0438\u0446"
-  icon: {fileID: 21300000, guid: f01f3bb228b3b4251a04e2036212d115, type: 3}
+  icon: {fileID: 21300000, guid: d4fe1b0cd7c4a9349a9b78985b89ce8a, type: 3}
   prefab: {fileID: 7407505191711522372, guid: 876a0819604f8d440befe40e5e07a68d, type: 3}
   category: 1
   spawnOffset: {x: 0, y: 0, z: 0}

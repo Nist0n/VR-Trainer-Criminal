@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: Brush
   displayName: "\u041A\u0438\u0441\u0442\u044C"
-  icon: {fileID: 21300000, guid: 7d7a2f6c5e996e24388af5a8227afdcf, type: 3}
+  icon: {fileID: 21300000, guid: dc6d906f3ac65a243abfd9ec53832243, type: 3}
   prefab: {fileID: 2158207836040551336, guid: cfa9d447f69c886408f1ca6a49010d86, type: 3}
   category: 0
   spawnOffset: {x: 0, y: 0, z: 0}
