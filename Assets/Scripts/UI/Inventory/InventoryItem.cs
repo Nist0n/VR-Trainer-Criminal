@@ -73,6 +73,7 @@ namespace UI.Inventory
         Take,
         Analysis,
         Discover,
-        OpenUI
+        OpenAdditionalInfo,
+        OpenFinalReport
     }
 } 

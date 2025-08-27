@@ -76,8 +76,10 @@ namespace UI.Inventory
                     return new AnalyzeItemAction();
                 case ItemActionType.Discover:
                     return new DiscoverItemAction();
-                case ItemActionType.OpenUI:
+                case ItemActionType.OpenAdditionalInfo:
                     return new OpenAdditionalInfoAction();
+                case ItemActionType.OpenFinalReport:
+                    return new OpenFinalReportAction();
                 default:
                     return null;
             }
@@ -202,6 +204,37 @@ namespace UI.Inventory
                 var uiPrefab = uiItem.UIprefab;
                 uiPrefab.GetComponent<AdditionalInfoUI>().TextInfo.text = uiItem.additionalInfo;
                 Object.Instantiate(uiPrefab, slot.Inventory.adaptiveGridInventory.transform);
+            }
+        }
+    }
+    
+    [System.Serializable]
+    public class OpenFinalReportAction : InventoryAction
+    {
+        public OpenFinalReportAction()
+        {
+            actionName = "Открыть финальный отчёт";
+            actionDescription = "Можно заполнить отчёт и отправить в ведомство";
+        }
+        
+        public override bool CanExecute(InventoryItem item)
+        {
+            return item;
+        }
+        
+        public override void Execute(InventoryItem item, InventorySlot slot)
+        {
+            var inventoryItemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
+            var uiItem = inventoryItemDatabase.GetItemById(item.itemId) as InventoryUIItem;
+            if (uiItem)
+            {
+                var uiPrefab = uiItem.UIprefab;
+                var instance = Object.Instantiate(uiPrefab, slot.Inventory.adaptiveGridInventory.transform);
+                FinalReport report = instance.GetComponent<FinalReport>();
+                if (report)
+                {
+                    report.PopulateFromUIItem(uiItem);
+                }
             }
         }
     }
