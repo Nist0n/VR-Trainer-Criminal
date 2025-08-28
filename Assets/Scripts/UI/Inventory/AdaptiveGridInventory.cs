@@ -32,6 +32,10 @@ namespace UI.Inventory
         [SerializeField] private float pickupDistance = 2f;
         [SerializeField] private InputActionProperty pickupAction;
         
+        [Header("Raycast Sources")]
+        [SerializeField] private Transform raycastOrigin1;
+        [SerializeField] private Transform raycastOrigin2;
+        
         [SerializeField] private List<GameObject> categoryTabs;
         private ToolCategory _currentCategory;
         private bool _isInventoryOpen;
@@ -211,20 +215,30 @@ namespace UI.Inventory
         
         private void TryPickupItem()
         {
-            Vector3 playerPosition = Camera.main.transform.position;
-            Vector3 playerForward = Camera.main.transform.forward;
-            
+            if (TryRaycastFromAssigned(raycastOrigin1)) return;
+            TryRaycastFromAssigned(raycastOrigin2);
+        }
+        
+        private bool TryRaycastFromAssigned(Transform origin)
+        {
+            if (!origin) return false;
+            return TryRaycastFrom(origin.position, origin.forward);
+        }
+        
+        private bool TryRaycastFrom(Vector3 origin, Vector3 direction)
+        {
             RaycastHit hit;
-            if (Physics.Raycast(playerPosition, playerForward, out hit, pickupDistance, itemLayerMask))
+            if (Physics.Raycast(origin, direction, out hit, pickupDistance, itemLayerMask))
             {
                 GameObject itemObject = hit.collider.gameObject;
-                
                 var pickupableItem = itemObject.GetComponent<PickupableItem>();
                 if (pickupableItem)
                 {
                     PickupItem(pickupableItem);
+                    return true;
                 }
             }
+            return false;
         }
         
         private void PickupItem(PickupableItem pickupableItem)

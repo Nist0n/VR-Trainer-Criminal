@@ -67,11 +67,6 @@ namespace UI.Inventory
                 originalMaterial = _renderer.material;
             }
             
-            if (showPickupPrompt && !pickupPrompt)
-            {
-                CreatePickupPrompt();
-            }
-            
             if (pickupPrompt)
             {
                 pickupPrompt.SetActive(false);
@@ -177,47 +172,6 @@ namespace UI.Inventory
             }
             
             Destroy(gameObject);
-        }
-        
-        private void CreatePickupPrompt()
-        {
-            GameObject prompt = new GameObject("PickupPrompt");
-            prompt.transform.SetParent(transform);
-            
-            Canvas canvas = prompt.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.WorldSpace;
-            canvas.worldCamera = Camera.main;
-            
-            CanvasScaler scaler = prompt.AddComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920, 1080);
-            
-            prompt.AddComponent<GraphicRaycaster>();
-            
-            GameObject background = new GameObject("Background");
-            background.transform.SetParent(prompt.transform);
-            
-            Image bgImage = background.AddComponent<Image>();
-            bgImage.color = new Color(0, 0, 0, 0.8f);
-            
-            RectTransform bgRect = background.GetComponent<RectTransform>();
-            bgRect.sizeDelta = new Vector2(200, 50);
-            bgRect.anchoredPosition = new Vector2(0, 1.5f);
-            
-            GameObject textObj = new GameObject("Text");
-            textObj.transform.SetParent(prompt.transform);
-            
-            Text text = textObj.AddComponent<Text>();
-            text.text = $"Нажмите E для подбора\n{displayName}";
-            text.fontSize = 12;
-            text.color = Color.white;
-            text.alignment = TextAnchor.MiddleCenter;
-            
-            RectTransform textRect = textObj.GetComponent<RectTransform>();
-            textRect.sizeDelta = new Vector2(200, 50);
-            textRect.anchoredPosition = new Vector2(0, 1.5f);
-            
-            pickupPrompt = prompt;
         }
         
         public void SetItemId(string newItemId)

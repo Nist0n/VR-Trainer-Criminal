@@ -2,6 +2,7 @@ using System;
 using UI.Inventory;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace Items
@@ -10,6 +11,7 @@ namespace Items
     {
         [SerializeField] private RenderTexture renderTexture;
         [SerializeField] private XRGrabInteractable grabInteractable;
+        [SerializeField] private InputActionProperty selectAction;
 
         private PhotoAlbum _photoAlbum;
         private bool _isHeld = false;
@@ -26,7 +28,7 @@ namespace Items
 
         private void Update()
         {
-            if (_isHeld && Input.GetKeyDown(KeyCode.F))
+            if (_isHeld && (Input.GetKeyDown(KeyCode.F) || selectAction.action.triggered))
             {
                 TakePhoto();
             }

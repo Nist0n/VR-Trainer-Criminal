@@ -3335,13 +3335,31 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "AddItem",
+                    "type": "Button",
+                    "id": "5ecb0563-ed8e-4b0b-9916-c3bb25cc6399",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Photo",
+                    "type": "Button",
+                    "id": "2d7ca8b0-2961-4ec8-a72c-9e480850caa6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "309a9dd9-7c90-4f71-aa64-2bbb8382bbb2",
-                    "path": "<XRController>{LeftHand}/menuButton",
+                    "path": "<XRController>{LeftHand}/{SecondaryButton}",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",
@@ -3357,6 +3375,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "684b11ae-0662-4a3a-9332-c2bb2f792417",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AddItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e996f8d5-6ad7-4190-a235-720e841f0ec0",
+                    "path": "<XRController>{RightHand}/{SecondaryButton}",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Photo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -452,6 +452,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderTexture: {fileID: 8400000, guid: 40f44763b2fbac04a838612d261379ab, type: 2}
   grabInteractable: {fileID: 4266208281994830219}
+  selectAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Select
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: b25daf2b-aed9-4c79-aa0e-5cc0a5b4116e
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 1887495138340342899, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1 &6502356357349744248
 GameObject:
   m_ObjectHideFlags: 0

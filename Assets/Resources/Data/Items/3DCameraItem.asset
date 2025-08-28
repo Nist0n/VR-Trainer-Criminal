@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 3DCamera
   displayName: "\u0424\u043E\u0442\u043E\u0430\u043F\u043F\u0430\u0440\u0430\u0442"
-  icon: {fileID: 21300000, guid: 4759f07415251b84ca57bc751ef78ed6, type: 3}
+  icon: {fileID: 21300000, guid: 7c50d5548c9231e45a4d825cf61c9888, type: 3}
   prefab: {fileID: 5227129675142266755, guid: a75389e8cfb1f064bb7c9fc75908e65d, type: 3}
   category: 0
   spawnOffset: {x: 0, y: 0, z: 0}
