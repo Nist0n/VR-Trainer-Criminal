@@ -21,10 +21,10 @@ namespace UI.Inventory
         
         private void Awake()
         {
-            if (Instance == null)
+            if (!Instance)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                // DontDestroyOnLoad(gameObject);
             }
             else
             {
@@ -74,7 +74,6 @@ namespace UI.Inventory
         
         public void ToggleInventory()
         {
-            Debug.Log("GGGGGGGGG");
             if (adaptiveInventory)
             {
                 adaptiveInventory.ToggleInventory();
@@ -83,7 +82,7 @@ namespace UI.Inventory
         
         private void HandleItemGrab()
         {
-            // Логика захвата предметов из мира
+            
         }
         
         public void SaveInventory()

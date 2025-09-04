@@ -446,13 +446,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7542733124902396138}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000005247663, y: -0.7847028, z: 0.61987215, w: -0.00000011539119}
-  m_LocalPosition: {x: -0.0000917, y: 0.000256, z: 0.000501}
+  m_LocalRotation: {x: -0.000000024361256, y: -0.6707102, z: 0.7417195, w: -0.00000011291233}
+  m_LocalPosition: {x: -0.0000917, y: 0.000223, z: 0.000504}
   m_LocalScale: {x: -0.008878059, y: -0.008878061, z: -0.008878061}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1458884072883283307}
-  m_LocalEulerAnglesHint: {x: 76.614, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 95.75598, y: 180, z: 0}
 --- !u!65 &6628438617372163112
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -472,8 +472,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.035435747, y: 0.032394983, z: 0.009006031}
-  m_Center: {x: 0.0021749754, y: 0.007491685, z: 0.0050959066}
+  m_Size: {x: 0.042686887, y: 0.040536135, z: 0.015713563}
+  m_Center: {x: 0.0058005406, y: 0.005306455, z: 0.0034305672}
 --- !u!114 &2625971126270379296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,4 +490,4 @@ MonoBehaviour:
   evidenceId: GlassFingerprint
   FingerprintId: GlassFingerprint
   SurfaceName: 
-  assignedSurfaceName: "\u0411\u043E\u043A\u0430\u043B"
+  assignedSurfaceName: "\u0420\u044E\u043C\u043A\u0430"
