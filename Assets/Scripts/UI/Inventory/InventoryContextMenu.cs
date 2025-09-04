@@ -145,7 +145,7 @@ namespace UI.Inventory
         public AnalyzeItemAction()
         {
             actionName = "Отправить в лабораторию";
-            actionDescription = "Распознание владельца";
+            actionDescription = "Отправка предмета на проверку";
         }
         
         public override void Execute(InventoryItem item, InventorySlot slot)
@@ -164,7 +164,7 @@ namespace UI.Inventory
         public DiscoverItemAction()
         {
             actionName = "Отправить в лабораторию";
-            actionDescription = "Распознание следа";
+            actionDescription = "Отправка предмета на проверку";
         }
         
         public override bool CanExecute(InventoryItem item)

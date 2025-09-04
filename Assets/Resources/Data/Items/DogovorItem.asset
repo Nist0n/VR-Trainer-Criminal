@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2109a5089f230fa4082cf6860cca61f8, type: 3}
-  m_Name: SyringeItem
+  m_Name: DogovorItem
   m_EditorClassIdentifier: 
-  itemId: Syringe
-  displayName: "\u0428\u043F\u0440\u0438\u0446"
-  icon: {fileID: 21300000, guid: d4fe1b0cd7c4a9349a9b78985b89ce8a, type: 3}
-  prefab: {fileID: 7407505191711522372, guid: 876a0819604f8d440befe40e5e07a68d, type: 3}
+  itemId: Dogovor
+  displayName: "\u0418\u043F\u043E\u0442\u0435\u0447\u043D\u044B\u0439 \u0434\u043E\u0433\u043E\u0432\u043E\u0440"
+  icon: {fileID: 21300000, guid: affa059594145a843b81788037b4ee21, type: 3}
+  prefab: {fileID: 3932047893366469508, guid: 8ee4c9cd6f81669468cffb9873a996a5, type: 3}
   category: 1
   spawnOffset: {x: 0, y: 0, z: 0}
   spawnRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -23,6 +23,6 @@ MonoBehaviour:
   maxStackSize: 1
   surfaceName: 
   hiddenDisplayName: 
-  description: "\u0428\u043F\u0440\u0438\u0446 \u043C\u0435\u0434\u0438\u0446\u0438\u043D\u0441\u043A\u0438\u0439"
+  description: 
   hiddenDescription: 
   availableActions: 0000000002000000

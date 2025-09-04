@@ -54,8 +54,8 @@ namespace UI.Inventory
         
         public void RevealHiddenData()
         {
-            displayName = hiddenDisplayName;
-            description = hiddenDescription;
+            if (hiddenDisplayName != null) displayName = hiddenDisplayName;
+            if (hiddenDescription != null) description = hiddenDescription;
             availableActions.Clear();
         }
     }
