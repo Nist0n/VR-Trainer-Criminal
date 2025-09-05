@@ -1,5 +1,6 @@
 using System;
 using Data;
+using UI.Inventory;
 using UnityEngine;
 
 namespace Items
@@ -25,6 +26,7 @@ namespace Items
         {
             if (!_pendingDestroy || !evidenceObject) return;
             Destroy(evidenceObject);
+            Destroy(gameObject);
             _pendingDestroy = false;
         }
 
@@ -51,15 +53,22 @@ namespace Items
         {
             if (!TimeOfPhoto.HasValue)
             {
+                EvidenceDatabase.Instance.GetEvidenceById<FingerprintData>(evidenceId).TimeOfPhoto = DateTime.Now;
                 TimeOfPhoto = DateTime.Now;
                 SurfaceName = assignedSurfaceName;
                 Debug.Log($"Отпечаток зафиксирован: {SurfaceName} в {TimeOfPhoto}");
             }
         }
 
-        public override void DeActivate()
+        public override void DeActivate(InventoryItem item, AdaptiveGridInventory inventory)
         {
-            _pendingDestroy = true;
+            item.surfaceName = SurfaceName;
+            item.timeOfPhoto = TimeOfPhoto;
+            item.itemId = FingerprintId;
+            inventory.AddItem(item);
+            Debug.Log(item.timeOfPhoto.Value);
+            evidenceObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 using UI.Inventory;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
-using TMPro;
 
 namespace UI.Inventory.Additional_UI
 {

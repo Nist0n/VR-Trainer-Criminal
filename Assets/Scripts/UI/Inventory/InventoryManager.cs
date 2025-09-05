@@ -34,6 +34,8 @@ namespace UI.Inventory
         
         private void Start()
         {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             InitializeInventory();
         }
         

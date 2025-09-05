@@ -19,8 +19,8 @@ MonoBehaviour:
   category: 1
   spawnOffset: {x: 0, y: 0, z: 0}
   spawnRotation: {x: 0, y: 0, z: 0, w: 1}
-  isStackable: 1
-  maxStackSize: 5
+  isStackable: 0
+  maxStackSize: 1
   surfaceName: 
   hiddenDisplayName: "\u041E\u0442\u043F\u0435\u0447\u0430\u0442\u043E\u043A"
   description: "\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0439

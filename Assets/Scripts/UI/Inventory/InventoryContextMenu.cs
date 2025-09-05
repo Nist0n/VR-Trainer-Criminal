@@ -126,8 +126,11 @@ namespace UI.Inventory
                 item.prefab.GetComponent<PickupableItem>().SetItemID(item.itemId);
                 item.prefab.GetComponent<PickupableItem>().SetSurfaceName(item.surfaceName);
                 item.prefab.GetComponent<PickupableItem>().SetTimeOfPhoto(item.timeOfPhoto);
+                if (item.timeOfPhoto.HasValue)
+                {
+                    Debug.Log(item.timeOfPhoto.Value);
+                }
                 GameObject spawnedItem = Object.Instantiate(item.prefab, _spawnpoint.position, Quaternion.identity);
-                
                 Rigidbody rb = spawnedItem.GetComponent<Rigidbody>();
                 if (rb)
                 {

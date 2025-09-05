@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GlassFingerprint
   m_EditorClassIdentifier: 
   EvidenceId: GlassFingerprint
-  OwnerName: Kate
-  IsDiscovered: 0
+  IsDiscovered: 1
   OriginalPosition: {x: 0, y: 0, z: 0}
+  OwnerName: "\u0421\u043E\u043A\u043E\u043B\u043E\u0432\u0430"

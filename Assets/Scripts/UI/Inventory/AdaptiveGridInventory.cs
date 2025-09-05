@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Data;
 using TMPro;
+using UI.Convert;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
@@ -60,7 +61,7 @@ namespace UI.Inventory
         
         private void HandleInput()
         {
-            if (pickupAction.action.triggered || Input.GetKeyDown(KeyCode.Q))
+            if (pickupAction.action.triggered)
             {
                 TryPickupItem();
             }
@@ -185,6 +186,10 @@ namespace UI.Inventory
                     slot.SetItem(item, spawnPoint);
                     _slots.Add(slot);
                     Resources.Load<InventoryItemDatabase>("InventoryItemDatabase").AddItem(item);
+                    if (item.timeOfPhoto.HasValue)
+                    {
+                        Debug.Log(item.timeOfPhoto.Value);
+                    }
                     break;
                 }
             }
@@ -237,12 +242,18 @@ namespace UI.Inventory
                     PickupItem(pickupableItem);
                     return true;
                 }
+                if (itemObject.CompareTag("Convert"))
+                {
+                    PickupItem(itemObject.GetComponent<ConvertConfig>().ConvertFingerprint());
+                }
             }
             return false;
         }
         
         private void PickupItem(PickupableItem pickupableItem)
         {
+            if (!pickupableItem) return;
+            
             var inventoryItemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
             if (inventoryItemDatabase)
             {
@@ -259,6 +270,8 @@ namespace UI.Inventory
                     var temp = Resources.Load<ItemsDatabase>("ItemsDatabase").GetItemById<InventoryItem>(pickupableItem.ItemId);
                     if (temp)
                     {
+                        temp.displayName = pickupableItem.DisplayName;
+                        temp.timeOfPhoto = pickupableItem.TimeOfPhoto;
                         AddItem(temp);
                     }
                     else

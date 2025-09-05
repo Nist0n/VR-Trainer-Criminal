@@ -1,4 +1,5 @@
 using Data;
+using UI.Inventory;
 using UnityEngine;
 
 namespace Items
@@ -20,7 +21,7 @@ namespace Items
 
         public virtual void Activate() {}
 
-        public virtual void DeActivate() {}
+        public virtual void DeActivate(InventoryItem item, AdaptiveGridInventory inventory) {}
 
         public EvidenceData GetEvidenceData()
         {
