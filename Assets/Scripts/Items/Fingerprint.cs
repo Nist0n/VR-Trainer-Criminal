@@ -1,5 +1,6 @@
 using System;
 using Data;
+using Systems.Omp;
 using UI.Inventory;
 using UnityEngine;
 
@@ -62,11 +63,36 @@ namespace Items
 
         public override void DeActivate(InventoryItem item, AdaptiveGridInventory inventory)
         {
+            // Проверка протокола: перед изъятием отпечаток должен быть сфотографирован
+            if (!TimeOfPhoto.HasValue)
+            {
+                var analyzer = OmpActionAnalyzer.Instance;
+                if (analyzer)
+                {
+                    analyzer.RegisterCustomError(
+                        penaltyId: $"no-photo-before-fingerprint-lift-{FingerprintId}",
+                        description: "Отпечаток изъят без предварительной фотофиксации.",
+                        points: 5f,
+                        relatedActionId: "LIFT_FINGERPRINT",
+                        context: FingerprintId
+                    );
+                }
+                else
+                {
+                    Debug.LogWarning("Fingerprint.DeActivate: OmpActionAnalyzer not found, штраф не зарегистрирован.");
+                }
+            }
+
             item.surfaceName = SurfaceName;
             item.timeOfPhoto = TimeOfPhoto;
             item.itemId = FingerprintId;
             inventory.AddItem(item);
-            Debug.Log(item.timeOfPhoto.Value);
+
+            if (item.timeOfPhoto.HasValue)
+            {
+                Debug.Log(item.timeOfPhoto.Value);
+            }
+
             evidenceObject.SetActive(false);
             Destroy(gameObject);
         }

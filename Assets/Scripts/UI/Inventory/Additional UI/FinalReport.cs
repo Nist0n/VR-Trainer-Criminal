@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
+using Systems.Omp;
 using UI.Inventory;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
@@ -15,6 +17,8 @@ namespace UI.Inventory.Additional_UI
         [SerializeField] private TMP_Dropdown motives;
         [SerializeField] private Button signTheReportButton;
         [SerializeField] private TMP_Text feedbackText;
+        [SerializeField] private TMP_Text penaltySummaryText;
+        [SerializeField] private TMP_Text penaltyDetailsText;
         [SerializeField] private Image suspectsBackground;
         [SerializeField] private Image reasonsOfDeathBackground;
         [SerializeField] private Image motivesBackground;
@@ -55,6 +59,8 @@ namespace UI.Inventory.Additional_UI
             SetDropdownOptions(suspects, uiItem.selectionOfSuspects);
             SetDropdownOptions(reasonsOfDeath, uiItem.selectionOfDeaths);
             SetDropdownOptions(motives, uiItem.selectionOfMotives);
+
+            RefreshPenaltySection(false);
         }
 
         private void SetDropdownOptions(TMP_Dropdown dropdown, List<ResponseOptions> options)
@@ -80,6 +86,8 @@ namespace UI.Inventory.Additional_UI
         {
             if (_isSubmitted || !_currentUiItem)
                 return;
+
+            RefreshPenaltySection(true);
 
             bool suspectCorrect = IsSelectionCorrect(suspects, _currentUiItem.selectionOfSuspects);
             bool deathCorrect = IsSelectionCorrect(reasonsOfDeath, _currentUiItem.selectionOfDeaths);
@@ -110,6 +118,51 @@ namespace UI.Inventory.Additional_UI
 
             _isSubmitted = true;
             SetInteractable(false);
+        }
+
+        private void RefreshPenaltySection(bool finalizeBeforeRefresh)
+        {
+            OmpActionAnalyzer analyzer = OmpActionAnalyzer.Instance;
+            if (!analyzer)
+            {
+                if (penaltySummaryText) penaltySummaryText.text = "Система анализа не активирована.";
+                if (penaltyDetailsText) penaltyDetailsText.text = string.Empty;
+                return;
+            }
+
+            if (finalizeBeforeRefresh)
+            {
+                analyzer.FinalizeAnalysis();
+            }
+
+            OmpActionAnalysisResult result = analyzer.BuildResult();
+
+            if (penaltySummaryText)
+            {
+                penaltySummaryText.text = $"Штрафные баллы: {result.TotalPenalty:0}";
+            }
+
+            if (penaltyDetailsText)
+            {
+                if (result.Penalties.Count == 0)
+                {
+                    penaltyDetailsText.text = "Нарушений не зафиксировано.";
+                }
+                else
+                {
+                    StringBuilder builder = new StringBuilder();
+                    foreach (OmpPenaltyEntry penalty in result.Penalties)
+                    {
+                        builder.Append("• ");
+                        builder.Append(penalty.Reason);
+                        builder.Append(" (-");
+                        builder.Append(penalty.Points.ToString("0.#"));
+                        builder.AppendLine(")");
+                    }
+
+                    penaltyDetailsText.text = builder.ToString();
+                }
+            }
         }
 
         private bool IsSelectionCorrect(TMP_Dropdown dropdown, List<ResponseOptions> options)

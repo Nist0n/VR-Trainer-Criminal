@@ -254,6 +254,8 @@ namespace UI.Inventory
         {
             if (!pickupableItem) return;
             
+            pickupableItem.Pickup(); // Проверка на ошибку подбора
+            
             var inventoryItemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
             if (inventoryItemDatabase)
             {

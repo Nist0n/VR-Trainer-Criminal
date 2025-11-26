@@ -1,4 +1,5 @@
 using System;
+using Systems.Omp;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -42,6 +43,9 @@ namespace UI.Inventory
         private bool _isPlayerNearby = false;
         private GameObject _player;
         private DateTime? _timeOfPhoto;
+        private Vector3 _initialPosition;
+        private Vector3 _lastPosition;
+        private bool _movementViolationReported;
         
         public string ItemId => itemId;
         public string DisplayName => displayName;
@@ -58,6 +62,7 @@ namespace UI.Inventory
         public void SetTimeOfPhoto(DateTime? time) => _timeOfPhoto = time;
         public void SetSurfaceName(string nameOfSurface) => surfaceName = nameOfSurface;
         
+        
         private void Start()
         {
             _player = GameObject.FindGameObjectWithTag("Player");
@@ -71,6 +76,10 @@ namespace UI.Inventory
             {
                 pickupPrompt.SetActive(false);
             }
+
+            _initialPosition = transform.position;
+            _lastPosition = _initialPosition;
+            _movementViolationReported = false;
         }
         
         private void Update()
@@ -79,6 +88,8 @@ namespace UI.Inventory
             {
                 CheckPlayerProximity();
             }
+
+            CheckMovementForProtocolViolation();
         }
         
         private void CheckPlayerProximity()
@@ -162,6 +173,27 @@ namespace UI.Inventory
         public void Pickup()
         {
             if (!CanBePickedUp()) return;
+
+            // Проверка протокола: перед любым взаимодействием предмет должен быть зафиксирован на фото.
+            // Если уже был зафиксирован факт перемещения без фото, второй раз ошибку не шлём.
+            if (!_timeOfPhoto.HasValue && !_movementViolationReported)
+            {
+                var analyzer = OmpActionAnalyzer.Instance;
+                if (analyzer)
+                {
+                    analyzer.RegisterCustomError(
+                        penaltyId: $"no-photo-before-pickup-{itemId}",
+                        description: $"Предмет \"{displayName}\" взят без предварительной фотофиксации.",
+                        points: 3f,
+                        relatedActionId: "PICKUP_ITEM",
+                        context: itemId
+                    );
+                }
+                else
+                {
+                    Debug.LogWarning($"{nameof(PickupableItem)}.Pickup: OmpActionAnalyzer not found, штраф не зарегистрирован.");
+                }
+            }
             
             onPickup?.Invoke();
             
@@ -172,6 +204,42 @@ namespace UI.Inventory
             }
             
             Destroy(gameObject);
+        }
+        
+        private void CheckMovementForProtocolViolation()
+        {
+            if (_movementViolationReported)
+                return;
+
+            if (_timeOfPhoto.HasValue)
+            {
+                _lastPosition = transform.position;
+                return;
+            }
+
+            float distance = Vector3.Distance(transform.position, _lastPosition);
+            Debug.Log($"{distance}: {displayName}");
+            if (distance <= 0.03f)
+                return;
+
+            var analyzer = OmpActionAnalyzer.Instance;
+            if (analyzer)
+            {
+                analyzer.RegisterCustomError(
+                    penaltyId: $"no-photo-before-move-{itemId}",
+                    description: $"Предмет \"{displayName}\" был перемещён без предварительной фотофиксации.",
+                    points: 3f,
+                    relatedActionId: "MOVE_ITEM_WITHOUT_PHOTO",
+                    context: itemId
+                );
+                _movementViolationReported = true;
+            }
+            else
+            {
+                Debug.LogWarning($"{nameof(PickupableItem)}.{nameof(CheckMovementForProtocolViolation)}: OmpActionAnalyzer not found, штраф не зарегистрирован.");
+            }
+
+            _lastPosition = transform.position;
         }
         
         public void SetItemId(string newItemId)

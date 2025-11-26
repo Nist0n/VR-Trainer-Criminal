@@ -36,27 +36,40 @@ namespace Items
 
         private void TakePhoto()
         {
+            DateTime photoTime = DateTime.Now;
+            
             RenderTexture.active = renderTexture;
             Texture2D photo = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
             photo.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
             photo.Apply();
             RenderTexture.active = null;
             
-            _photoAlbum.AddPhoto(photo, DateTime.Now);
+            _photoAlbum.AddPhoto(photo, photoTime);
 
-            var fingerprints = FindObjectsByType<Fingerprint>(FindObjectsSortMode.None);
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(_photoCamera);
-            
+
+            // Фиксация отпечатков, попавших в кадр
+            var fingerprints = FindObjectsByType<Fingerprint>(FindObjectsSortMode.None);
             Debug.Log(fingerprints.Length + " Количество отпечатков");
 
             foreach (var fp in fingerprints)
             {
                 var rend = fp.GetComponentInParent<Renderer>();
-                Debug.Log(rend);
                 if (rend && GeometryUtility.TestPlanesAABB(planes, rend.bounds))
                 {
                     Debug.Log("Найден отпечаток");
                     fp.FixatePhoto();
+                }
+            }
+
+            // Фиксация любых предметов с PickupableItem, попавших в кадр
+            var pickupItems = FindObjectsByType<PickupableItem>(FindObjectsSortMode.None);
+            foreach (var item in pickupItems)
+            {
+                var rend = item.GetComponentInChildren<Renderer>();
+                if (rend && GeometryUtility.TestPlanesAABB(planes, rend.bounds))
+                {
+                    item.SetTimeOfPhoto(photoTime);
                 }
             }
         }
