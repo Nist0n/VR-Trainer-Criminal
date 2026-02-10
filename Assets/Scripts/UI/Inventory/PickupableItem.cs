@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 namespace UI.Inventory
 {
-    /// <summary>
-    /// Компонент для предметов, которые можно подбирать в инвентарь
-    /// </summary>
     public class PickupableItem : MonoBehaviour
     {
         [Header("Item Settings")]
@@ -46,6 +43,7 @@ namespace UI.Inventory
         private Vector3 _initialPosition;
         private Vector3 _lastPosition;
         private bool _movementViolationReported;
+        private bool _protocolTrackingDisabled;
         
         public string ItemId => itemId;
         public string DisplayName => displayName;
@@ -61,6 +59,7 @@ namespace UI.Inventory
         public void SetItemID(string id) => itemId = id;
         public void SetTimeOfPhoto(DateTime? time) => _timeOfPhoto = time;
         public void SetSurfaceName(string nameOfSurface) => surfaceName = nameOfSurface;
+        public void DisableProtocolTracking() => _protocolTrackingDisabled = true;
         
         
         private void Start()
@@ -84,6 +83,11 @@ namespace UI.Inventory
         
         private void Update()
         {
+            if (_protocolTrackingDisabled)
+            {
+                return;
+            }
+
             if (requirePlayerProximity)
             {
                 CheckPlayerProximity();
@@ -174,6 +178,18 @@ namespace UI.Inventory
         {
             if (!CanBePickedUp()) return;
 
+            if (_protocolTrackingDisabled)
+            {
+                onPickup?.Invoke();
+                var inv = FindAnyObjectByType<AdaptiveGridInventory>();
+                if (inv)
+                {
+                    inv.AddItemToInventory(itemId);
+                }
+                Destroy(gameObject);
+                return;
+            }
+
             // Проверка протокола: перед любым взаимодействием предмет должен быть зафиксирован на фото.
             // Если уже был зафиксирован факт перемещения без фото, второй раз ошибку не шлём.
             if (!_timeOfPhoto.HasValue && !_movementViolationReported)
@@ -184,7 +200,7 @@ namespace UI.Inventory
                     analyzer.RegisterCustomError(
                         penaltyId: $"no-photo-before-pickup-{itemId}",
                         description: $"Предмет \"{displayName}\" взят без предварительной фотофиксации.",
-                        points: 3f,
+                        points: 1f,
                         relatedActionId: "PICKUP_ITEM",
                         context: itemId
                     );
@@ -208,6 +224,9 @@ namespace UI.Inventory
         
         private void CheckMovementForProtocolViolation()
         {
+            if (_protocolTrackingDisabled)
+                return;
+
             if (_movementViolationReported)
                 return;
 
@@ -218,7 +237,6 @@ namespace UI.Inventory
             }
 
             float distance = Vector3.Distance(transform.position, _lastPosition);
-            Debug.Log($"{distance}: {displayName}");
             if (distance <= 0.03f)
                 return;
 
@@ -228,15 +246,11 @@ namespace UI.Inventory
                 analyzer.RegisterCustomError(
                     penaltyId: $"no-photo-before-move-{itemId}",
                     description: $"Предмет \"{displayName}\" был перемещён без предварительной фотофиксации.",
-                    points: 3f,
+                    points: 1f,
                     relatedActionId: "MOVE_ITEM_WITHOUT_PHOTO",
                     context: itemId
                 );
                 _movementViolationReported = true;
-            }
-            else
-            {
-                Debug.LogWarning($"{nameof(PickupableItem)}.{nameof(CheckMovementForProtocolViolation)}: OmpActionAnalyzer not found, штраф не зарегистрирован.");
             }
 
             _lastPosition = transform.position;

@@ -173,7 +173,6 @@ namespace Systems.Omp
             }
             else if (index < _nextStepIndex && !completedSteps.Contains(actionId))
             {
-                // Step was previously penalized as skipped, allow completion but keep penalty.
             }
 
             completedSteps.Add(actionId);

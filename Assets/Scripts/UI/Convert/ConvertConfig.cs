@@ -10,33 +10,68 @@ namespace UI.Convert
     {
         [SerializeField] private TextMeshProUGUI date;
         [SerializeField] private TextMeshProUGUI place;
-        private PickupableItem _fingerprintObject;
+        private PickupableItem _otherObject;
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Fingerprint"))
+            if (other.GetComponent<PickupableItem>().Category == ToolCategory.Traces)
             {
-                _fingerprintObject = other.gameObject.GetComponent<PickupableItem>();
-                place.text = other.GetComponent<PickupableItem>().SurfaceName;
-                var timeOfPhoto = EvidenceDatabase.Instance.GetEvidenceById<FingerprintData>(_fingerprintObject.ItemId).TimeOfPhoto;
-                if (timeOfPhoto.HasValue)
-                    date.text = timeOfPhoto.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                if (other.CompareTag("Fingerprint"))
+                {
+                    _otherObject = other.gameObject.GetComponent<PickupableItem>();
+                    if (_otherObject.SurfaceName != null)
+                    {
+                        place.text = _otherObject.SurfaceName;
+                    }
+                    else
+                    {
+                        place.text = "-";
+                    }
+                    
+                    var timeOfPhoto = EvidenceDatabase.Instance.GetEvidenceById<FingerprintData>(_otherObject.ItemId).TimeOfPhoto;
+                    if (timeOfPhoto != null)
+                    {
+                        date.text = timeOfPhoto.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                    }
+                    else
+                    {
+                        date.text = "-";
+                    }
+                    other.gameObject.SetActive(false);
+                }
                 else
                 {
-                    date.text = "Не указана";
+                    _otherObject = other.gameObject.GetComponent<PickupableItem>();
+                    if (_otherObject.SurfaceName != null)
+                    {
+                        place.text = _otherObject.SurfaceName;
+                    }
+                    else
+                    {
+                        place.text = "-";
+                    }
+
+                    var timeOfPhoto = _otherObject.TimeOfPhoto;
+                    if (timeOfPhoto != null)
+                    {
+                        date.text = timeOfPhoto.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                    }
+                    else
+                    {
+                        date.text = "-";
+                    }
+                    other.gameObject.SetActive(false);
                 }
-                Debug.Log($"Время: {timeOfPhoto}");
-                other.gameObject.SetActive(false);
             }
         }
 
         public PickupableItem ConvertFingerprint()
         {
-            if (_fingerprintObject)
+            if (_otherObject)
             {
-                _fingerprintObject.SetDisplayName(_fingerprintObject.DisplayName + " в конверте");
+                _otherObject.SetDisplayName(_otherObject.DisplayName + " в конверте");
                 Destroy(gameObject);
-                return _fingerprintObject;
+                return _otherObject;
             }
             Destroy(gameObject);
             return null;

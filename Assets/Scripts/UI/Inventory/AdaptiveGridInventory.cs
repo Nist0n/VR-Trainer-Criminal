@@ -3,6 +3,7 @@ using Data;
 using TMPro;
 using UI.Convert;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -41,6 +42,17 @@ namespace UI.Inventory
         private ToolCategory _currentCategory;
         private bool _isInventoryOpen;
         private List<InventorySlot> _slots = new List<InventorySlot>();
+
+        // Набор стартовых инструментов для сцены Fabula1
+        private static readonly HashSet<string> Fabula1DefaultToolIds = new HashSet<string>
+        {
+            "3DCamera",  
+            "Brush",      
+            "NotebookUI", 
+            "FinalReport",
+            "Convert",    
+            "scotch"      
+        };
         
         public GameObject adaptiveGridInventory;
         
@@ -151,6 +163,25 @@ namespace UI.Inventory
                 return;
             }
             
+            var activeScene = SceneManager.GetActiveScene();
+            if (activeScene.IsValid() && activeScene.name == "Fabula1")
+            {
+                foreach (var toolId in Fabula1DefaultToolIds)
+                {
+                    var item = itemDatabase.GetItemById(toolId);
+                    if (item)
+                    {
+                        AddItem(item);
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Fabula1 default tool with id '{toolId}' not found in InventoryItemDatabase.");
+                    }
+                }
+                
+                return;
+            }
+            
             foreach (ToolCategory category in System.Enum.GetValues(typeof(ToolCategory)))
             {
                 var items = itemDatabase.GetItemsByCategory(category);
@@ -237,14 +268,15 @@ namespace UI.Inventory
             {
                 GameObject itemObject = hit.collider.gameObject;
                 var pickupableItem = itemObject.GetComponent<PickupableItem>();
+                if (itemObject.CompareTag("Convert"))
+                {
+                    PickupItem(itemObject.GetComponent<ConvertConfig>().ConvertFingerprint());
+                    return true;
+                }
                 if (pickupableItem)
                 {
                     PickupItem(pickupableItem);
                     return true;
-                }
-                if (itemObject.CompareTag("Convert"))
-                {
-                    PickupItem(itemObject.GetComponent<ConvertConfig>().ConvertFingerprint());
                 }
             }
             return false;
@@ -262,8 +294,6 @@ namespace UI.Inventory
                 var item = inventoryItemDatabase.GetItemById(pickupableItem.ItemId);
                 if (item)
                 {
-                    Debug.Log(item.itemId + " - ID при поднятии предмета");
-                    Debug.Log(item.prefab.GetComponent<PickupableItem>().ItemId + " - ID префаба при поднятии предмета");
                     AddItem(item);
                     Destroy(pickupableItem.gameObject);
                 }

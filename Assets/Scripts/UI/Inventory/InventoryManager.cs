@@ -12,7 +12,6 @@ namespace UI.Inventory
         
         [Header("Input Actions")]
         [SerializeField] private InputActionProperty toggleInventoryAction;
-        [SerializeField] private InputActionProperty grabAction;
         
         private Dictionary<string, int> _playerInventory = new Dictionary<string, int>();
         private bool _isInitialized = false;
@@ -24,7 +23,6 @@ namespace UI.Inventory
             if (!Instance)
             {
                 Instance = this;
-                // DontDestroyOnLoad(gameObject);
             }
             else
             {
@@ -67,11 +65,6 @@ namespace UI.Inventory
             {
                 ToggleInventory();
             }
-            
-            if (grabAction.action.triggered)
-            {
-                HandleItemGrab();
-            }
         }
         
         public void ToggleInventory()
@@ -80,11 +73,6 @@ namespace UI.Inventory
             {
                 adaptiveInventory.ToggleInventory();
             }
-        }
-        
-        private void HandleItemGrab()
-        {
-            
         }
         
         public void SaveInventory()

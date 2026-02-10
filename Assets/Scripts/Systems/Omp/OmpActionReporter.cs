@@ -2,9 +2,6 @@ using UnityEngine;
 
 namespace Systems.Omp
 {
-    /// <summary>
-    /// Lightweight helper that can be hooked to UnityEvent / animation events to report OМП actions.
-    /// </summary>
     public class OmpActionReporter : MonoBehaviour
     {
         [SerializeField] private string actionId;

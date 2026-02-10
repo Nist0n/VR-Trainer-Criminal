@@ -17,6 +17,8 @@ namespace UI.Inventory
         public Quaternion spawnRotation = Quaternion.identity;
         public bool isStackable = false;
         public int maxStackSize = 1;
+        [Header("Special Options")]
+        public bool isInfinite = false;
         public string surfaceName;
         public DateTime? timeOfPhoto;
         public string hiddenDisplayName;
@@ -43,6 +45,7 @@ namespace UI.Inventory
             copy.spawnRotation = this.spawnRotation;
             copy.isStackable = this.isStackable;
             copy.maxStackSize = this.maxStackSize;
+            copy.isInfinite = this.isInfinite;
             copy.surfaceName = this.surfaceName;
             copy.timeOfPhoto = this.timeOfPhoto;
             copy.hiddenDisplayName = this.hiddenDisplayName;

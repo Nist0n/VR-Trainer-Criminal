@@ -50,14 +50,12 @@ namespace Items
 
             // Фиксация отпечатков, попавших в кадр
             var fingerprints = FindObjectsByType<Fingerprint>(FindObjectsSortMode.None);
-            Debug.Log(fingerprints.Length + " Количество отпечатков");
 
             foreach (var fp in fingerprints)
             {
                 var rend = fp.GetComponentInParent<Renderer>();
                 if (rend && GeometryUtility.TestPlanesAABB(planes, rend.bounds))
                 {
-                    Debug.Log("Найден отпечаток");
                     fp.FixatePhoto();
                 }
             }

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using Data;
 using Items;
+using Systems.Omp;
 using TMPro;
 using UI.Inventory.Additional_UI;
 using UnityEngine.Serialization;
@@ -123,21 +124,31 @@ namespace UI.Inventory
         {
             if (item.prefab)
             {
-                item.prefab.GetComponent<PickupableItem>().SetItemID(item.itemId);
-                item.prefab.GetComponent<PickupableItem>().SetSurfaceName(item.surfaceName);
-                item.prefab.GetComponent<PickupableItem>().SetTimeOfPhoto(item.timeOfPhoto);
-                if (item.timeOfPhoto.HasValue)
+                var prefabPickup = item.prefab.GetComponent<PickupableItem>();
+                if (prefabPickup)
                 {
-                    Debug.Log(item.timeOfPhoto.Value);
+                    prefabPickup.SetItemID(item.itemId);
+                    prefabPickup.SetSurfaceName(item.surfaceName);
+                    prefabPickup.SetTimeOfPhoto(item.timeOfPhoto);
                 }
+
                 GameObject spawnedItem = Object.Instantiate(item.prefab, _spawnpoint.position, Quaternion.identity);
+                var spawnedPickup = spawnedItem.GetComponent<PickupableItem>();
+                if (spawnedPickup)
+                {
+                    spawnedPickup.DisableProtocolTracking();
+                }
+
                 Rigidbody rb = spawnedItem.GetComponent<Rigidbody>();
                 if (rb)
                 {
                     rb.isKinematic = false;
                 }
-                
-                slot.RemoveFromStack();
+
+                if (!item.isInfinite)
+                {
+                    slot.RemoveFromStack();
+                }
             }
         }
     }
@@ -153,6 +164,31 @@ namespace UI.Inventory
         
         public override void Execute(InventoryItem item, InventorySlot slot)
         {
+            var analyzer = OmpActionAnalyzer.Instance;
+            if (analyzer)
+            {
+                if (string.IsNullOrEmpty(item.hiddenDescription))
+                {
+                    analyzer.RegisterCustomError(
+                        penaltyId: $"send-to-lab-no-hidden-data-{item.itemId}",
+                        description: $"Предмет \"{item.displayName}\" отправлен в лабораторию без возможной причины (нет скрытого описания).",
+                        points: 1f,
+                        relatedActionId: "SEND_TO_LABORATORY",
+                        context: item.itemId
+                    );
+                }
+                if (string.IsNullOrEmpty(item.surfaceName) || !item.timeOfPhoto.HasValue)
+                {
+                    analyzer.RegisterCustomError(
+                        penaltyId: $"send-to-lab-without-envelope-{item.itemId}",
+                        description: $"Предмет \"{item.displayName}\" отправлен в лабораторию не в конверте — без места и времени извлечения.",
+                        points: 1f,
+                        relatedActionId: "SEND_TO_LABORATORY",
+                        context: item.itemId
+                    );
+                }
+            }
+
             InventoryItem discoveredItem = item.CreateCopy();
             discoveredItem.RevealHiddenData();
             discoveredItem.description += $" - {EvidenceDatabase.Instance.GetEvidenceById<FingerprintData>(discoveredItem.itemId).OwnerName}";
@@ -177,6 +213,31 @@ namespace UI.Inventory
         
         public override void Execute(InventoryItem item, InventorySlot slot)
         {
+            var analyzer = OmpActionAnalyzer.Instance;
+            if (analyzer)
+            {
+                if (string.IsNullOrEmpty(item.hiddenDescription))
+                {
+                    analyzer.RegisterCustomError(
+                        penaltyId: $"send-to-lab-no-hidden-data-{item.itemId}",
+                        description: $"Предмет \"{item.displayName}\" отправлен в лабораторию без возможной причины (нет скрытого описания).",
+                        points: 1f,
+                        relatedActionId: "SEND_TO_LABORATORY",
+                        context: item.itemId
+                    );
+                }
+                if (string.IsNullOrEmpty(item.surfaceName) || !item.timeOfPhoto.HasValue)
+                {
+                    analyzer.RegisterCustomError(
+                        penaltyId: $"send-to-lab-without-envelope-{item.itemId}",
+                        description: $"Предмет \"{item.displayName}\" отправлен в лабораторию без места и времени извлечения.",
+                        points: 1f,
+                        relatedActionId: "SEND_TO_LABORATORY",
+                        context: item.itemId
+                    );
+                }
+            }
+
             InventoryItem discoveredItem = item.CreateCopy();
             discoveredItem.RevealHiddenData();
             

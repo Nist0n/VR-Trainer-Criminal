@@ -7,7 +7,6 @@ namespace UI.Inventory
     [CreateAssetMenu(fileName = "ItemsDatabase", menuName = "Game/New UIItem")]
     public class InventoryUIItem : InventoryItem
     {
-        [ValidatedString(900, true)]
         public string additionalInfo;
         
         [Space(15)]

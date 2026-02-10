@@ -12,10 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8c2c7923154d50ba21a4453e03a6ad, type: 3}
   m_Name: OmpActionSequence
   m_EditorClassIdentifier: 
-  steps:
-  - ActionId: 
-    DisplayName: 
-    SequencePenalty: 0
-    SkipPenalty: 0
-    RepeatPenalty: 0
-    AllowedToolIds: []
+  steps: []

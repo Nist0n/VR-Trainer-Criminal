@@ -21,8 +21,8 @@ MonoBehaviour:
   spawnRotation: {x: 0, y: 0, z: 0, w: 1}
   isStackable: 0
   maxStackSize: 1
-  surfaceName: 
+  surfaceName: "\u0421\u0442\u043E\u043B"
   hiddenDisplayName: 
-  description: 
+  description: "\u0411\u0443\u0442\u044B\u043B\u043A\u0430 \u043F\u0438\u0432\u0430"
   hiddenDescription: 
   availableActions: 0000000002000000

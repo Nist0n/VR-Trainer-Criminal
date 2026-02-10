@@ -17,7 +17,7 @@ namespace Items.Editor
             
             var database = Resources.Load<EvidenceDatabase>("EvidenceDatabase");
             
-            if (database == null)
+            if (!database)
             {
                 database = ScriptableObject.CreateInstance<EvidenceDatabase>();
                 AssetDatabase.CreateAsset(database, "Assets/Resources/EvidenceDatabase.asset");

@@ -7,6 +7,5 @@ namespace Data
     public class FingerprintData : EvidenceData
     {
         public string OwnerName; // Опционально
-        public DateTime? TimeOfPhoto;
     }
 } 

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using Data;
 using Items;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace UI.Inventory
 {
@@ -76,7 +78,7 @@ namespace UI.Inventory
         public void RemoveItemById(string itemId)
         {
             var item = GetItemById(itemId);
-            if (item != null)
+            if (item)
             {
                 RemoveItem(item);
             }
@@ -97,8 +99,10 @@ namespace UI.Inventory
             item.surfaceName = surfaceName;
             item.timeOfPhoto = timeOfPhoto;
             
+#if UNITY_EDITOR
             AssetDatabase.CreateAsset(item, $"Assets/Resources/Data/Items/{itemId}Item.asset");
             AssetDatabase.SaveAssets();
+#endif
             
             ItemsDatabase.Instance.AddNewItemToDatabase(item);
             
@@ -108,7 +112,6 @@ namespace UI.Inventory
         
         public void SaveToPlayerPrefs()
         {
-            // Сохраняем состояние инвентаря (какие предметы у игрока)
             // Это можно расширить для сохранения прогресса
         }
         
@@ -117,39 +120,4 @@ namespace UI.Inventory
             // Загружаем состояние инвентаря
         }
     }
-    
-    // public static class InventoryItemExtensions
-    // {
-    //     public static bool IsSamplingTool(this InventoryItem item)
-    //     {
-    //         return item.category == ToolCategory.Sampling;
-    //     }
-    //     
-    //     public static bool IsAnalysisTool(this InventoryItem item)
-    //     {
-    //         return item.category == ToolCategory.Analysis;
-    //     }
-    //     
-    //     public static bool IsDocumentationTool(this InventoryItem item)
-    //     {
-    //         return item.category == ToolCategory.Documentation;
-    //     }
-    //     
-    //     public static bool IsGeneralTool(this InventoryItem item)
-    //     {
-    //         return item.category == ToolCategory.General;
-    //     }
-    //     
-    //     public static string GetCategoryDisplayName(this ToolCategory category)
-    //     {
-    //         return category switch
-    //         {
-    //             ToolCategory.Sampling => "Сбор образцов",
-    //             ToolCategory.Analysis => "Анализ",
-    //             ToolCategory.Documentation => "Документирование",
-    //             ToolCategory.General => "Общие",
-    //             _ => "Неизвестно"
-    //         };
-    //     }
-    // }
 } 
