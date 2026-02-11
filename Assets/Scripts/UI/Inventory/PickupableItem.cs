@@ -181,11 +181,11 @@ namespace UI.Inventory
             if (_protocolTrackingDisabled)
             {
                 onPickup?.Invoke();
-                var inv = FindAnyObjectByType<AdaptiveGridInventory>();
-                if (inv)
-                {
-                    inv.AddItemToInventory(itemId);
-                }
+                // var inv = FindAnyObjectByType<AdaptiveGridInventory>();
+                // if (inv)
+                // {
+                //     inv.AddItemToInventory(itemId);
+                // }
                 Destroy(gameObject);
                 return;
             }
@@ -213,11 +213,11 @@ namespace UI.Inventory
             
             onPickup?.Invoke();
             
-            var inventory = FindAnyObjectByType<AdaptiveGridInventory>();
-            if (inventory)
-            {
-                inventory.AddItemToInventory(itemId);
-            }
+            // var inventory = FindAnyObjectByType<AdaptiveGridInventory>();
+            // if (inventory)
+            // {
+            //     inventory.AddItemToInventory(itemId);
+            // }
             
             Destroy(gameObject);
         }

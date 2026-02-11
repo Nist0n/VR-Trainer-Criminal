@@ -187,6 +187,16 @@ namespace UI.Inventory
                         context: item.itemId
                     );
                 }
+                if (!item.displayName.Contains("конверт"))
+                {
+                    analyzer.RegisterCustomError(
+                        penaltyId: $"send-to-lab-without-convert-{item.itemId}",
+                        description: $"Предмет \"{item.displayName}\" отправлен в лабораторию без конверта.",
+                        points: 1f,
+                        relatedActionId: "SEND_TO_LABORATORY",
+                        context: item.itemId
+                    );
+                }
             }
 
             InventoryItem discoveredItem = item.CreateCopy();
@@ -231,6 +241,16 @@ namespace UI.Inventory
                     analyzer.RegisterCustomError(
                         penaltyId: $"send-to-lab-without-envelope-{item.itemId}",
                         description: $"Предмет \"{item.displayName}\" отправлен в лабораторию без места и времени извлечения.",
+                        points: 1f,
+                        relatedActionId: "SEND_TO_LABORATORY",
+                        context: item.itemId
+                    );
+                }
+                if (!item.displayName.Contains("конверт"))
+                {
+                    analyzer.RegisterCustomError(
+                        penaltyId: $"send-to-lab-without-convert-{item.itemId}",
+                        description: $"Предмет \"{item.displayName}\" отправлен в лабораторию без конверта.",
                         points: 1f,
                         relatedActionId: "SEND_TO_LABORATORY",
                         context: item.itemId

@@ -30,16 +30,20 @@ namespace UI.Inventory
             
             foreach (var item in allItems)
             {
+                if (!item) continue;
                 if (!string.IsNullOrEmpty(item.itemId))
                 {
-                    _itemLookup[item.itemId] = item;
+                    _itemLookup[item.itemId] = item; // индексер перезаписывает дубликаты, не бросает
                 }
-                
+
                 if (!_categoryLookup.ContainsKey(item.category))
                 {
                     _categoryLookup[item.category] = new List<InventoryItem>();
                 }
-                _categoryLookup[item.category].Add(item);
+                if (!_categoryLookup[item.category].Contains(item))
+                {
+                    _categoryLookup[item.category].Add(item);
+                }
             }
         }
         

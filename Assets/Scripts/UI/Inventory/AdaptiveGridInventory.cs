@@ -42,8 +42,7 @@ namespace UI.Inventory
         private ToolCategory _currentCategory;
         private bool _isInventoryOpen;
         private List<InventorySlot> _slots = new List<InventorySlot>();
-
-        // Набор стартовых инструментов для сцены Fabula1
+        
         private static readonly HashSet<string> Fabula1DefaultToolIds = new HashSet<string>
         {
             "3DCamera",  
@@ -156,36 +155,28 @@ namespace UI.Inventory
         {
             ShowAllCategories();
             
-            var itemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
-            if (!itemDatabase)
+            var itemDatabase = Resources.Load<ItemsDatabase>("ItemsDatabase");
+            var inventoryItemDatabase = Resources.Load<InventoryItemDatabase>("InventoryItemDatabase");
+            if (!inventoryItemDatabase)
             {
                 Debug.LogError("Failed to load InventoryItemDatabase from Resources!");
                 return;
             }
-            
-            var activeScene = SceneManager.GetActiveScene();
-            if (activeScene.IsValid() && activeScene.name == "Fabula1")
+            if (!itemDatabase)
             {
-                foreach (var toolId in Fabula1DefaultToolIds)
-                {
-                    var item = itemDatabase.GetItemById(toolId);
-                    if (item)
-                    {
-                        AddItem(item);
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"Fabula1 default tool with id '{toolId}' not found in InventoryItemDatabase.");
-                    }
-                }
-                
+                Debug.LogError("Failed to load ItemDatabase from Resources!");
                 return;
             }
-            
-            foreach (ToolCategory category in System.Enum.GetValues(typeof(ToolCategory)))
+
+            foreach (var item in inventoryItemDatabase.GetAllItems())
             {
-                var items = itemDatabase.GetItemsByCategory(category);
-                foreach (var item in items)
+                inventoryItemDatabase.RemoveItem(item);
+            }
+            
+            foreach (var toolId in Fabula1DefaultToolIds)
+            {
+                var item = itemDatabase.GetItemById<InventoryItem>(toolId);
+                if (item)
                 {
                     AddItem(item);
                 }
@@ -270,11 +261,13 @@ namespace UI.Inventory
                 var pickupableItem = itemObject.GetComponent<PickupableItem>();
                 if (itemObject.CompareTag("Convert"))
                 {
+                    Debug.Log("Поднят конверт");
                     PickupItem(itemObject.GetComponent<ConvertConfig>().ConvertFingerprint());
                     return true;
                 }
                 if (pickupableItem)
                 {
+                    Debug.Log("Поднят предмет");
                     PickupItem(pickupableItem);
                     return true;
                 }
@@ -304,6 +297,7 @@ namespace UI.Inventory
                     {
                         temp.displayName = pickupableItem.DisplayName;
                         temp.timeOfPhoto = pickupableItem.TimeOfPhoto;
+                        Debug.Log("Создан существующий");
                         AddItem(temp);
                     }
                     else
@@ -311,6 +305,7 @@ namespace UI.Inventory
                         InventoryItem newItem = inventoryItemDatabase.CreateItem(pickupableItem.ItemId, pickupableItem.DisplayName, pickupableItem.Icon,
                             pickupableItem.Prefab, pickupableItem.Category, pickupableItem.IsStackable, pickupableItem.MaxStackSize, pickupableItem.Description, pickupableItem.SurfaceName, pickupableItem.TimeOfPhoto);
                         AddItem(newItem);
+                        Debug.Log("Создан из префаба");
                     }
                     Destroy(pickupableItem.gameObject);
                 }

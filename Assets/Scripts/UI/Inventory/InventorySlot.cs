@@ -29,6 +29,9 @@ namespace UI.Inventory
         private int _itemCount = 0;
         private GameObject _contextMenu;
         private bool _isHovered = false;
+
+        // Текущий слот с открытым контекстным меню
+        private static InventorySlot _currentContextSlot;
         
         public InventoryItem Item => _item;
         public int ItemCount => _itemCount;
@@ -128,7 +131,6 @@ namespace UI.Inventory
         {
             _isHovered = false;
             UpdateVisuals();
-            HideContextMenu();
         }
         
         public void OnPointerClick(PointerEventData eventData)
@@ -141,7 +143,16 @@ namespace UI.Inventory
         
         private void ShowContextMenu()
         {
-            if (_contextMenu) return;
+            // Если у другого слота уже открыто контекстное меню — закрываем его
+            if (_currentContextSlot && _currentContextSlot != this)
+            {
+                _currentContextSlot.HideContextMenu();
+            }
+
+            if (_contextMenu)
+            {
+                return;
+            }
             
             _contextMenu = Instantiate(contextMenuPrefab, transform);
             var contextMenu = _contextMenu.GetComponent<InventoryContextMenu>();
@@ -150,6 +161,8 @@ namespace UI.Inventory
             RectTransform rectTransform = _contextMenu.GetComponent<RectTransform>();
             RectTransform temp = gameObject.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = new Vector2(rectTransform.rect.width + 17 - temp.anchoredPosition.x, 0);
+
+            _currentContextSlot = this;
         }
         
         private void HideContextMenu()
@@ -158,6 +171,11 @@ namespace UI.Inventory
             {
                 Destroy(_contextMenu);
                 _contextMenu = null;
+            }
+
+            if (_currentContextSlot == this)
+            {
+                _currentContextSlot = null;
             }
         }
     }
